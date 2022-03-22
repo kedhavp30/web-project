@@ -484,16 +484,16 @@ nav .profile-details i{
   box-shadow: 0 0 1px 0 rgba(var(--donut-spacing-color), calc(100 * var(--donut-spacing)));
 }
 
-.donut-slice-first {
+.slice-first {
   --first-start: 0;
 }
 
-.donut-slice-first::before {
+.slice-first::before {
   border-top-color: rgba(var(--donut-spacing-color), calc(100 * var(--donut-spacing)));
   transform: rotate(calc(360deg * var(--first-start) + 45deg));
 }
 
-.donut-slice-first::after {
+.slice-first::after {
   border-top-color: #ff6838;
   border-right-color: rgba(255, 104, 56, calc(100 * (var(--first) - 0.25)));
   border-bottom-color: rgba(255, 104, 56, calc(100 * (var(--first) - 0.5)));
@@ -501,19 +501,19 @@ nav .profile-details i{
   transform: rotate(calc(360deg * var(--first-start) + 45deg + var(--donut-spacing-deg)));
 }
 
-.donut-slice-second {
+.slice-second {
   --second-start: calc(var(--first));
   --second-check: max(calc(var(--second-start) - 0.5), 0);
   -webkit-clip-path: inset(0 calc(50% * (var(--second-check) / var(--second-check))) 0 0);
           clip-path: inset(0 calc(50% * (var(--second-check) / var(--second-check))) 0 0);
 }
 
-.donut-slice-second::before {
+.slice-second::before {
   border-top-color: rgba(var(--donut-spacing-color), calc(100 * var(--donut-spacing)));
   transform: rotate(calc(360deg * var(--second-start) + 45deg));
 }
 
-.donut-slice-second::after {
+.slice-second::after {
   border-top-color: #ffc820;
   border-right-color: rgba(255, 200, 32, calc(100 * (var(--second) - 0.25)));
   border-bottom-color: rgba(255, 200, 32, calc(100 * (var(--second) - 0.5)));
@@ -521,19 +521,19 @@ nav .profile-details i{
   transform: rotate(calc(360deg * var(--second-start) + 45deg + var(--donut-spacing-deg)));
 }
 
-.donut-slice-third {
+.slice-third {
   --third-start: calc(var(--first) + var(--second));
   --third-check: max(calc(var(--third-start) - 0.5), 0);
   -webkit-clip-path: inset(0 calc(50% * (var(--third-check) / var(--third-check))) 0 0);
           clip-path: inset(0 calc(50% * (var(--third-check) / var(--third-check))) 0 0);
 }
 
-.donut-slice-third::before {
+.slice-third::before {
   border-top-color: rgba(var(--donut-spacing-color), calc(100 * var(--donut-spacing)));
   transform: rotate(calc(360deg * var(--third-start) + 45deg));
 }
 
-.donut-slice-third::after {
+.slice-third::after {
   border-top-color: #1cb2f6;
   border-right-color: rgba(151, 201, 92, calc(100 * (var(--third) - 0.25)));
   border-bottom-color: rgba(151, 201, 92, calc(100 * (var(--third) - 0.5)));
