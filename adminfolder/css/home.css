@@ -460,14 +460,14 @@ nav .profile-details i{
   letter-spacing: 0.05em;
 }
 
-.donut-slice {
+.slice {
   height: 100%;
   position: absolute;
   width: 100%;
 }
 
-.donut-slice::before,
-.donut-slice::after {
+.slice::before,
+.slice::after {
   border: var(--donut-border-width) solid rgba(0, 0, 0, 0);
   border-radius: 50%;
   content: "";
@@ -479,7 +479,7 @@ nav .profile-details i{
   width: 100%;
 }
 
-.donut-slice::before {
+.slice::before {
   border-width: calc(var(--donut-border-width) + 1px);
   box-shadow: 0 0 1px 0 rgba(var(--donut-spacing-color), calc(100 * var(--donut-spacing)));
 }
