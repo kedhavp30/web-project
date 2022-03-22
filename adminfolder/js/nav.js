@@ -34,7 +34,7 @@ const createNav = () => {
       <li>
         <a href="#">
           <i class='bx bx-message' ></i>
-          <span class="links_name">Messages</span>
+          <span class="links_name">Feedbacks</span>
         </a>
       </li>
       <li>
