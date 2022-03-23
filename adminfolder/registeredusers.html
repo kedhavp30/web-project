@@ -42,7 +42,7 @@
                       <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Date Created</th>
                       <th scope="col" class="border-0 text-uppercase font-medium">Status</th>
-                      <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Manage <form id="manage-user-form"><input type="submit" value="Apply"></input></form></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -65,8 +65,10 @@
                         <span class="user-status user-active">Active</span>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i> </button>
-                        <button type="button" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i> </button>
+                        <input type="radio" form="manage-user-form" id="ban-kai" name="status-kai" value="ban"></input>
+                        <label for="ban-kai" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i></label>
+                        <input type="radio" form="manage-user-form" id="unban-kai" name="status-kai" value="unban"></input>
+                        <label for="unban-kai" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i></label>
                         <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-eye"></i> </button>
                       </td>
                     </tr>
@@ -89,8 +91,10 @@
                         <span class="user-status user-banned">banned</span>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i> </button>
-                        <button type="button" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i> </button>
+                        <input type="radio" form="manage-user-form" id="ban-rudi" name="status-rudi" value="ban"></input>
+                        <label for="ban-rudi" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i></label>
+                        <input type="radio" form="manage-user-form" id="unban-rudi" name="status-rudi" value="unban"></input>
+                        <label for="unban-rudi" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i></label>
                         <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-eye"></i> </button>
                       </td>
                     </tr>
@@ -113,8 +117,10 @@
                         <span class="user-status user-active">Active</span>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i> </button>
-                        <button type="button" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i> </button>
+                        <input type="radio" form="manage-user-form" id="ban-reece" name="status-reece" value="ban"></input>
+                        <label for="ban-reece" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i></label>
+                        <input type="radio" form="manage-user-form" id="unban-reece" name="status-reece" value="unban"></input>
+                        <label for="unban-reece" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i></label>
                         <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-eye"></i> </button>
                       </td>
                     </tr>
@@ -137,8 +143,10 @@
                         <span class="user-status user-active">Active</span>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i> </button>
-                        <button type="button" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i> </button>
+                        <input type="radio" form="manage-user-form" id="ban-mount" name="status-mount" value="ban"></input>
+                        <label for="ban-mount" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i></label>
+                        <input type="radio" form="manage-user-form" id="unban-mount" name="status-mount" value="unban"></input>
+                        <label for="unban-mount" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i></label>
                         <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-eye"></i> </button>
                       </td>
                     </tr>
@@ -161,8 +169,10 @@
                         <span class="user-status user-active">Active</span>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i> </button>
-                        <button type="button" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i> </button>
+                        <input type="radio" form="manage-user-form" id="ban-puli" name="status-puli" value="ban"></input>
+                        <label for="ban-puli" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i></label>
+                        <input type="radio" form="manage-user-form" id="unban-puli" name="status-puli" value="unban"></input>
+                        <label for="unban-puli" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i></label>
                         <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-eye"></i> </button>
                       </td>
                     </tr>
@@ -185,8 +195,10 @@
                         <span class="user-status user-banned">Banned</span>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i> </button>
-                        <button type="button" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i> </button>
+                        <input type="radio" form="manage-user-form" id="ban-kova" name="status-kova" value="ban"></input>
+                        <label for="ban-kova" class="btn btn-ban btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-ban"></i></label>
+                        <input type="radio" form="manage-user-form" id="unban-kova" name="status-kova" value="unban"></input>
+                        <label for="unban-kova" class="btn btn-active btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-check-circle"></i></label>
                         <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"><i class="fa fa-eye"></i> </button>
                       </td>
                     </tr>
