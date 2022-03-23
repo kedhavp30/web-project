@@ -97,7 +97,29 @@ button:not(:disabled) {
   padding: 10px;
 }
 
-.user-table tbody tr .category-select {
+.user-table tbody tr .user-status {
   max-width: 150px;
   border-radius: 20px;
+  padding: 0 20px;
+  color: #fff;
+}
+
+.user-active {
+  background-color: #4cc790;
+  border: 1px solid #4cc790;
+}
+
+.user-banned {
+  background-color: #e87d88;
+  border: 1px solid #e87d88;
+}
+
+.btn-ban:hover {
+  background-color: #e87d88;
+  border: 1px solid #e87d88;
+}
+
+.btn-active:hover {
+  background-color: #4cc790;
+  border: 1px solid #4cc790;
 }

@@ -523,22 +523,19 @@ nav .profile-details i{
 }
 
 .circle {
-	stroke: #915db1;
+	stroke: #e87d88;
 	fill: none;
 	stroke-width: 3;
 }
 
 .circle:nth-child(2) {
-	stroke: #e59f3c;
+	stroke: #e8dd7d;
 }
 
 .circle:nth-child(3) {
-	stroke: #5397d6;
-}
-
-.circle:nth-child(4) {
 	stroke: #4cc790;
 }
+
 
 .graph-container p {
 	position: absolute;
@@ -556,4 +553,38 @@ nav .profile-details i{
 
 .info span {
 	color: #fff;
+}
+
+
+#legenda {
+  margin-left: 20px;
+  background-color: white;
+  padding: 5px;
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+}
+
+.entry-color {
+    height: 10px;
+    width: 10px;
+}
+
+.entry-text {
+  margin-left: 5px;
+  color: black;
+}
+
+#color-blue {
+  background-color: #4cc790;
+}
+
+#color-black {
+  background-color: #e87d88;
+}
+
+#color-brown {
+  background-color: #e8dd7d;
 }
