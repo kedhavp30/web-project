@@ -75,7 +75,7 @@
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                 <input type ="text" autocomplete ="off" id="username" name="username" placeholder ="username">
                 <input type ="email" autocomplete ="off" id="email" name="useremail" placeholder ="email">
-                <input type ="password" autocomplete ="off" id="password" name="userpassword" placeholder ="password">
+                <input type ="password" autocomplete ="off" id="password" name="password" placeholder ="password">
                 
                 <input type ="checkbox" checked class="checkbox" id ="terms-and-cond">
                 <label for="terms-and-cond">agree to our <a href="">terms and conditions</a></label> 

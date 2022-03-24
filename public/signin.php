@@ -25,7 +25,6 @@
 
         // Form valid
         if ($usernameErr == "" && $passwordErr == ""){
-            $hashedpassword = password_hash($userpassword, PASSWORD_DEFAULT);
 
             require_once "includes/db_connect.php";
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
