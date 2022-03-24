@@ -5,7 +5,7 @@
     font-family: Poppins, sans-serif;
   }
   
-  .navbar {
+  .mynavbar {
     position: sticky;
     top: 0;
     left: 0;
@@ -14,28 +14,28 @@
     z-index: 9;
   }
   
-  .nav {
+  .mynav {
     padding: 10px 10vw;
     display: flex;
     justify-content: space-between;
   }
   
-  .brand-logo {
+  .mybrand-logo {
     height: 80px;
     width: 300px;
   }
   
-  .nav-items {
+  .mynav-items {
     display: flex;
     align-items: center;
   }
   
-  .search {
+  .mysearch {
     display: flex;
     width: 500px;
   }
   
-  .search-box{
+  .mysearch-box{
     width: 80%;
     height: 40px;
     padding: 10px;
@@ -48,11 +48,11 @@
     color: #a9a9a9;
   }
   
-  .search-box::placeholder {
+  .mysearch-box::placeholder {
     color: #a9a9a9;
   }
   
-  .search-btn {
+  .mysearch-btn {
     width: 20%;
     height: 40px;
     padding: 10px 20px;
@@ -67,16 +67,16 @@
     border-bottom-right-radius: 10px;
   }
   
-  .nav-items a {
+  .mynav-items a {
     margin-left: 20px;
   }
   
-  .nav-items a i {
+  .mynav-items a i {
     color: #383838;
     font-size: 36px;
   }
   
-  .links-container {
+  .mylinks-container {
     width: 100%;
     display: flex;
     padding: 10px 10vw;
@@ -85,7 +85,7 @@
     border-top: 1px solid #d1d1d1;
   }
   
-  .link {
+  .mylink {
     text-transform: capitalize;
     font-size: 18px;
     padding: 0px 10px;
@@ -96,7 +96,7 @@
     transition: 0.5s;
   }
   
-  .link:hover {
+  .mylink:hover {
     opacity: 1;
   }
   
