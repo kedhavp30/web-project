@@ -1,0 +1,15 @@
+<?php
+
+   $server_name = "localhost";
+   $user_name = "kedhav";
+   $password = "kedhavp";
+   $db_name = "onlineclothing";
+
+   try {
+      $conn = new PDO("mysql:host=$server_name;dbname=$db_name", $user_name, $password);
+      echo "Connected to database.";
+   } catch(PDOException $e) {
+      echo  $e->getMessage();
+   }
+
+?>
