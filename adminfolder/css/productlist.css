@@ -2,10 +2,6 @@
 
 body {
   display: flex;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
 }
 
 .home-section {
@@ -16,7 +12,7 @@ body {
   left: 240px;
   transition: all 0.5s ease;
 }
-.sidebar.active ~ .home-section {
+.mysidebar.active ~ .home-section {
   width: calc(100% - 60px);
   left: 60px;
 }
@@ -35,7 +31,7 @@ body {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.5s ease;
 }
-.sidebar.active ~ .home-section nav {
+.mysidebar.active ~ .home-section nav {
   left: 60px;
   width: calc(100% - 60px);
 }
