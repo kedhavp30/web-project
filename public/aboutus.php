@@ -132,6 +132,7 @@ if (isset($_SESSION["username"])) {
           <input type ="submit" value="Send Message" >
       </form>
     </div>
+ </div>
   
 
   <footer></footer>
