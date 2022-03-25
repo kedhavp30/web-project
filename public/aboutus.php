@@ -4,66 +4,41 @@
     header("Location: signin.php?referer=aboutus");
     die();
   }
-  $username=	$_SESSION['username'] ;
+
+  $commentErr = "";
+  $username = $comment =  "";
+
+  $username=	$_SESSION['username'];
  
-    // define variables and set to empty string values
+  function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+  }
 
-    function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["comment"])) {
+      $commentErr = "Message is required";
+    } else {
+      $comment = test_input($_POST["comment"]);
     }
 
-      $usernameErr = $emailErr = $commentErr = "";
-      $username = $email = $comment =  "";
+    if ($commentErr == ""){
+      require_once "includes/db_connect.php";
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (empty($_POST["username"])) {
-          $nameErr = "Username is required";
-        } else {
-          $name = test_input($_POST["username"]);
-        }
-        if (empty($_POST["email"])) {
-          $nameErr = "Email is required";
-        } else {
-          $name = test_input($_POST["email"]);
-        }
-        if (empty($_POST["comment"])) {
-          $nameErr = "Message is required";
-        } else {
-          $name = test_input($_POST["comment"]);
-        }
+      $sInsert = "INSERT INTO feedback (username, postedOn, comment)
+      VALUES ({$conn->quote($username)}, {$conn->quote(date("Y-m-d"))}, {$conn->quote($comment)});";
 
-        if ($usernameErr="" && $emailErr="" && $messageErr=""){
-          require_once "includes/db_connect.php";
-          $sInsert = "INSERT INTO Feedback (username,postedOn,email,comment)
-          VALUES (".$conn->quote($username).",".$conn->quote($email).",".$conn->quote($comment).",".$conn->quote($postedOn).")";
-          echo $sInsert;
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-          $addResult = $conn->exec($sInsert) ;
-          if($addResult )
-          {	
-              $Msg = "Record Saved!";
-              //echo $Msg;
-          }else{
-              $Msg = "ERROR: Record could not be Saved!";
-          //echo $Msg;
-        }
-    }//end else
-   }	
-
-
-    $sQuery = "SELECT * FROM Feedback WHERE account.username= " . $conn->quote($_SESSION['username']); 
-    #echo $sQuery;
-    $Result = $conn->query($sQuery) ;
-    $numrows = $Result->rowCount();
-    echo $numrows;
-    if ($numrows ==0)
-    {
-   	 echo "You have not made a comment yet.";
+      $addResult = $conn->exec($sInsert) ;  
+      if($addResult) {	
+        $Msg = "Record Saved!";
+      } else {
+        $Msg = "ERROR: Record could not be Saved!";
+      }
     }
+  }	
 
 
 ?>
@@ -116,17 +91,9 @@
 
      <!------------------------------ Contact-Us Form------------------------------>
     <div class="contact-us-form">
-      <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" >
-          <legend>Personal Information</legend>
-          <label>Username<span> * </span></label>
-          <input type ="text" value="" name= "username" title="Username should be alpha-numeric" required  style="margin-top:5px" />
-          
-          <br/><br/>
-          <label>Email<span> * </span></label> 
-          <input type ="text" value="" name= "email" title="email should contains the @ and . sign" required />
-          <br/><br/><br/>
-          <label>Message<span> * </span></label><br/>
-          <textarea  rows="10" cols="60" name="comment" title="should leave a comment" required></textarea><br/><br/>
+      <form method="post" action="<?php echo $_SERVER["PHP_SELF"] ;?>" >
+          <label>Message<span> * <?php echo $commentErr; ?></span></label><br/>
+          <textarea  rows="10" cols="60" name="comment" title="should leave a comment" required><?php echo $comment; ?></textarea><br/><br/>
           <br/>	
           <input type ="submit" value="Send Message" >
       </form>
