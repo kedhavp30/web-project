@@ -32,7 +32,7 @@
 
             $result = $conn->query($sQuery);
 
-            $userResults = $result -> fetch(PDO::FETCH_ASSOC);
+            $userResults = $result->fetch(PDO::FETCH_ASSOC);
             if ($userResults['username']) // user exists
             {
                 $hashedpassword = $userResults['password'];
