@@ -27,7 +27,7 @@
   $customerQueryResult = $conn->query($customerQuery);
 
   $isCustomer = false;
-  if ($customerQueryResult->rowCount()) {
+  if ($customerQueryResult->fetchColumn()) {
     $isCustomer = true;
     $customerInfo = $customerQueryResult->fetch(PDO::FETCH_ASSOC);
     // echo "customer info retrieved.";
@@ -81,12 +81,12 @@
         $_SESSION["email"] = $email;
 
         if (!$updateAccount) {
-          echo "Couldn't update email.";
+          // echo "Couldn't update email.";
           $conn->rollBack();
         }
       }   
 
-      if ($isCustomer == "Customer") {
+      if ($isCustomer == "Customer" && $updateAccount) {
 
         // Update only edited values in customer table
         if ($_SESSION["fname"] != $fname) {
