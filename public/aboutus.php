@@ -1,9 +1,11 @@
 <?php
-session_start();
-if (isset($_SESSION["username"])) {
+  session_start();
+  if (!isset($_SESSION["username"])) {
+    header("Location: signin.php?referer=aboutus");
+    die();
+  }
   $username=	$_SESSION['username'] ;
-  header("Location: index.html");
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +63,8 @@ if (isset($_SESSION["username"])) {
             return $data;
             }
 
-          $usernameErr = $emailErr = $messageErr = "";
-          $username = $email = $message =  "";
+          $usernameErr = $emailErr = $commentErr = "";
+          $username = $email = $comment =  "";
 
           if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($_POST["username"])) {
@@ -83,8 +85,8 @@ if (isset($_SESSION["username"])) {
 
             if ($usernameErr="" && $emailErr="" && $messageErr=""){
               require_once "includes/db_connect.php";
-              $sInsert = "INSERT INTO contactus (username,email,message)
-              VALUES (".$conn->quote($username).",".$conn->quote($email).",".$conn->quote($message).")";
+              $sInsert = "INSERT INTO Feedback (username,postedOn,email,comment)
+              VALUES (".$conn->quote($username).",".$conn->quote($email).",".$conn->quote($comment).",".$conn->quote($postedOn).")";
               echo $sInsert;
               $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -104,7 +106,7 @@ if (isset($_SESSION["username"])) {
 
 <?php
     require_once "includes/db_connect.php";
-    $sQuery = "SELECT * FROM contactus WHERE account.username= " . $conn->quote($_SESSION['username']); 
+    $sQuery = "SELECT * FROM Feedback WHERE account.username= " . $conn->quote($_SESSION['username']); 
     #echo $sQuery;
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $Result = $conn->query($sQuery) ;
