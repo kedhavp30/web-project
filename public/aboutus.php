@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION["username"])) {
+  $username=	$_SESSION['username'] ;
+  header("Location: index.html");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +20,7 @@
 <body>
 
   <nav class="mynavbar"></nav>
+
 
   <div class="main-content">
     <div class="about-us">
@@ -41,11 +50,77 @@
       <h1 >Get in touch</h1>
       <p class="wlc-message">We are here to help and answer any query you might have.</p>
       <p class="wlc-message"> We look forward to hearing from you.</p>
-    
-      <div class="contact-us-form">
+   
+   <?php  
+        // define variables and set to empty string values
+
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+            }
+
+          $usernameErr = $emailErr = $messageErr = "";
+          $username = $email = $message =  "";
+
+          if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (empty($_POST["username"])) {
+              $nameErr = "Username is required";
+            } else {
+              $name = test_input($_POST["username"]);
+            }
+            if (empty($_POST["email"])) {
+              $nameErr = "Email is required";
+            } else {
+              $name = test_input($_POST["email"]);
+            }
+            if (empty($_POST["comment"])) {
+              $nameErr = "Message is required";
+            } else {
+              $name = test_input($_POST["comment"]);
+            }
+
+            if ($usernameErr="" && $emailErr="" && $messageErr=""){
+              require_once "includes/db_connect.php";
+              $sInsert = "INSERT INTO contactus (username,email,message)
+              VALUES (".$conn->quote($username).",".$conn->quote($email).",".$conn->quote($message).")";
+              echo $sInsert;
+              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+              $addResult = $conn->exec($sInsert) ;
+              if($addResult )
+              {	
+                  $Msg = "Record Saved!";
+                  //echo $Msg;
+              }else{
+                 $Msg = "ERROR: Record could not be Saved!";
+              //echo $Msg;
+           }
+           $conn == null;
+      }//end else
+   }	
+?>
+
+<?php
+    require_once "includes/db_connect.php";
+    $sQuery = "SELECT * FROM contactus WHERE account.username= " . $conn->quote($_SESSION['username']); 
+    #echo $sQuery;
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $Result = $conn->query($sQuery) ;
+    $numrows = $Result->rowCount();
+    echo $numrows;
+    if ($numrows ==0)
+    {
+   	 echo "You have not made a comment yet.";
+    }
+?>
+     <!------------------------------ Contact-Us Form------------------------------>
+    <div class="contact-us-form">
+      <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" >
           <legend>Personal Information</legend>
           <label>Username<span> * </span></label>
-          <input type ="text" value="" name= "fname" title="Username should be alpha-numeric" required  style="margin-top:5px" />
+          <input type ="text" value="" name= "username" title="Username should be alpha-numeric" required  style="margin-top:5px" />
           
           <br/><br/>
           <label>Email<span> * </span></label> 
@@ -55,9 +130,10 @@
           <textarea  rows="10" cols="60" name="comment" title="should leave a comment" required></textarea><br/><br/>
           <br/>	
           <input type ="submit" value="Send Message" >
-      </div>
+      </form>
     </div>
-  </div>
+ </div>
+  
 
   <footer></footer>
 
