@@ -27,7 +27,7 @@
   $customerQueryResult = $conn->query($customerQuery);
 
   $isCustomer = false;
-  if ($customerQueryResult->fetchColumn()) {
+  if ($customerQueryResult->rowCount()) {
     $isCustomer = true;
     $customerInfo = $customerQueryResult->fetch(PDO::FETCH_ASSOC);
     // echo "customer info retrieved.";
@@ -35,7 +35,7 @@
     $_SESSION["fname"] = $customerInfo["firstname"];
     $_SESSION["lname"] = $customerInfo["lastname"];
     $_SESSION["dob"] = $customerInfo["dob"];
-    $_SESSION["gender"] = $customerInfo["gender"] == "m" ? "male" : "female";
+    $_SESSION["gender"] = ($customerInfo["gender"] == "m" ? "male" : "female");
     $_SESSION["phone"] = $customerInfo["phone"];
     $_SESSION["address"] = $customerInfo["address"];
   }
