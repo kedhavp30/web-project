@@ -5,6 +5,66 @@
     die();
   }
   $username=	$_SESSION['username'] ;
+ 
+    // define variables and set to empty string values
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
+      $usernameErr = $emailErr = $commentErr = "";
+      $username = $email = $comment =  "";
+
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST["username"])) {
+          $nameErr = "Username is required";
+        } else {
+          $name = test_input($_POST["username"]);
+        }
+        if (empty($_POST["email"])) {
+          $nameErr = "Email is required";
+        } else {
+          $name = test_input($_POST["email"]);
+        }
+        if (empty($_POST["comment"])) {
+          $nameErr = "Message is required";
+        } else {
+          $name = test_input($_POST["comment"]);
+        }
+
+        if ($usernameErr="" && $emailErr="" && $messageErr=""){
+          require_once "includes/db_connect.php";
+          $sInsert = "INSERT INTO Feedback (username,postedOn,email,comment)
+          VALUES (".$conn->quote($username).",".$conn->quote($email).",".$conn->quote($comment).",".$conn->quote($postedOn).")";
+          echo $sInsert;
+          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+          $addResult = $conn->exec($sInsert) ;
+          if($addResult )
+          {	
+              $Msg = "Record Saved!";
+              //echo $Msg;
+          }else{
+              $Msg = "ERROR: Record could not be Saved!";
+          //echo $Msg;
+        }
+    }//end else
+   }	
+
+
+    $sQuery = "SELECT * FROM Feedback WHERE account.username= " . $conn->quote($_SESSION['username']); 
+    #echo $sQuery;
+    $Result = $conn->query($sQuery) ;
+    $numrows = $Result->rowCount();
+    echo $numrows;
+    if ($numrows ==0)
+    {
+   	 echo "You have not made a comment yet.";
+    }
+
 
 ?>
 
@@ -53,70 +113,7 @@
       <p class="wlc-message">We are here to help and answer any query you might have.</p>
       <p class="wlc-message"> We look forward to hearing from you.</p>
    
-   <?php  
-        // define variables and set to empty string values
 
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-            }
-
-          $usernameErr = $emailErr = $commentErr = "";
-          $username = $email = $comment =  "";
-
-          if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (empty($_POST["username"])) {
-              $nameErr = "Username is required";
-            } else {
-              $name = test_input($_POST["username"]);
-            }
-            if (empty($_POST["email"])) {
-              $nameErr = "Email is required";
-            } else {
-              $name = test_input($_POST["email"]);
-            }
-            if (empty($_POST["comment"])) {
-              $nameErr = "Message is required";
-            } else {
-              $name = test_input($_POST["comment"]);
-            }
-
-            if ($usernameErr="" && $emailErr="" && $messageErr=""){
-              require_once "includes/db_connect.php";
-              $sInsert = "INSERT INTO Feedback (username,postedOn,email,comment)
-              VALUES (".$conn->quote($username).",".$conn->quote($email).",".$conn->quote($comment).",".$conn->quote($postedOn).")";
-              echo $sInsert;
-              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-              $addResult = $conn->exec($sInsert) ;
-              if($addResult )
-              {	
-                  $Msg = "Record Saved!";
-                  //echo $Msg;
-              }else{
-                 $Msg = "ERROR: Record could not be Saved!";
-              //echo $Msg;
-           }
-           $conn == null;
-      }//end else
-   }	
-?>
-
-<?php
-    require_once "includes/db_connect.php";
-    $sQuery = "SELECT * FROM Feedback WHERE account.username= " . $conn->quote($_SESSION['username']); 
-    #echo $sQuery;
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $Result = $conn->query($sQuery) ;
-    $numrows = $Result->rowCount();
-    echo $numrows;
-    if ($numrows ==0)
-    {
-   	 echo "You have not made a comment yet.";
-    }
-?>
      <!------------------------------ Contact-Us Form------------------------------>
     <div class="contact-us-form">
       <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" >
