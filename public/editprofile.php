@@ -75,16 +75,20 @@
 
       $conn->beginTransaction();
 
+      $updateAccount = true;
       // Update account only if email edited
       if ($_SESSION["email"] != $email) {
         $updateAccount = $conn->exec($updateAccountQuery);
-        $_SESSION["email"] = $email;
 
         if (!$updateAccount) {
           // echo "Couldn't update email.";
           $conn->rollBack();
         }
       }   
+
+      if ($updateAccount) {
+        $_SESSION["email"] = $email;
+      }
 
       if ($isCustomer == "Customer" && $updateAccount) {
 
@@ -163,7 +167,7 @@
                 <div class="d-flex flex-column align-items-center text-center">
                   <img src="img/david-de-gea-7.jpg" alt="Admin" class="rounded-circle" width="70%">
                   <div class="mt-3">
-                    <h4><?php echo "{$fname} {$lname}"; ?></h4>
+                    <h4><?php echo "{$_SESSION["fname"]} {$_SESSION["lname"]}"; ?></h4>
                     <p class="text-secondary mb-1"><?php echo $isCustomer ? "Customer" : "User"; ?></p>
                     <p class="text-muted font-size-sm"><?php echo "{$_SESSION["address"]}"; ?></p>
                   </div>
