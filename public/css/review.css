@@ -21,7 +21,7 @@ legend {
   background-color: beige;
 }
 
-.personal-details, .product-details {
+.product-details {
   border: 5px solid #00ACEE;
   border-radius: 30px;
   background-color: beige;
