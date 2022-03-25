@@ -90,6 +90,7 @@
       $conn = null;
 
       header("Location: viewproduct.html?productid={$_SESSION["productid"]}&size={$_SESSION["size"]}&colour={$_SESSION["colour"]}");
+      die();
     }
   }
 
