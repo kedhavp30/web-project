@@ -52,3 +52,9 @@
 .shadow-none {
     box-shadow: none!important;
 }
+
+input[type="text"],
+input[type="email"],
+input[type="date"] {
+    border-style: none;
+}
