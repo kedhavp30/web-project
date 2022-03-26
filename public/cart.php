@@ -22,7 +22,7 @@
 
 	// Registered users; retrieve cart items from db if not yet
 	if (isset($_SESSION["username"])) {
-		if (!$_SESSION["cart"]) {
+		if (!$_SESSION["cart"]) { // cart empty
 
 			$cartQuery = "SELECT cart.productId, size, colour, quantity, cart.unitPrice, cart.discount, prodName, picture
 										FROM cart INNER JOIN product ON cart.productId = product.productId
@@ -32,6 +32,7 @@
 
 			if ($cartQueryResult->rowCount()) {
 
+				// Session variable cart contains productId as key and product info as value
 				forEach($cartQueryResult->fetchAll(PDO::FETCH_ASSOC) as $product) {
 					$_SESSION["cart"]["{$product["productId"]}"] = array("size"=>"{$product["size"]}",
 																															 "colour"=>"{$product["colour"]}",
