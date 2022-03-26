@@ -16,35 +16,21 @@ if (!isset($_SESSION["username"])) {
 
     //Retrive From Cart Table
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $_SESSION["productid"] = $_GET["productid"];
-    $_SESSION["size"] = $_GET["size"];
-    $_SESSION["colour"] = $_GET["colour"];
-    $_SESSION["customerid"] = $_GET["customerid"];
+    
 
     $cartQuery = "SELECT * FROM cart 
-    WHERE customerid  = {$conn->quote($_SESSION["customerid"])}
-    AND productid = {$conn->quote($_SESSION["productid"])}
-    AND size = {$conn->quote($_SESSION["size"])}
-    AND colour = {$conn->quote($_SESSION["colour"])};
+    WHERE username  = {$conn->quote($_SESSION["username"])}";
+
 
 
     $cartQueryResult = $conn->query($cartQuery);
+    $_SESSION["cartinfo"] = $cartQueryResult->fetchAll(PDO::FETCH_ASSOC);
 
-    $iscart = false;
-    if ($cartQueryResult->rowCount()) {
-    $iscart = true;
-    $cartInfo = $cartQueryResult->fetch(PDO::FETCH_ASSOC);
-
-    }
+    
 }
 
   // Form submitted
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["pay"])) {
-      $paymentmethodErr = "Payment Method is required.";
-    } else {
-      $paymentmethod = $_POST["pay"];
-    }    
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     if (empty($_POST["creditcardnum"])) {
       $creditcardnumErr = "Credit card num is required.";
     } else {
@@ -58,36 +44,39 @@ if (!isset($_SESSION["username"])) {
 
       //Insert Into Order and Order Details
 
-      if( $paymentmethodErr == "" && $creditcardnumErr  == "" && $creditcardpinErr == "" )
+      if( $creditcardnumErr  == "" && $creditcardpinErr == "")
       {
         require_once "includes/db_connect.php";
+
+        $paymentId = $conn->query("SELECT paymentId FROM paymentinfo WHERE  creditCardNo =  $creditcardnum ")->fetch(PDO::FETCH_ASSOC)['paymentId'];
       
-        $sInsert = "INSERT INTO order(orderId,status,orderDate,paymentId, username )
-             VALUES ( {$conn->quote($orderId)}, {$conn->quote($status)}, {$conn->quote($orderDate)} ,
-             {$conn->quote($paymentId)}, {$conn->quote($username)} )
+        $sInsert = "INSERT INTO order(status,orderDate,paymentId, username )
+             VALUES ( {$conn->quote($status)}, {$conn->quote(date("Y-m-d"))} ,
+             {$conn->quote($paymentId)}, {$conn->quote($username)});";
         #echo $sInsert;
 
-        $Insert = "INSERT INTO orderitems(orderId,productId,size,colour, quantity,unitprice,discount )
-        VALUES ( {$conn->quote($orderId)}, {$conn->quote($productId)}, {$conn->quote($size)} ,
-        {$conn->quote($colour)}, {$conn->quote($quantity)} , {$conn->quote($unitprice)} , {$conn->quote($discount)} )
-        #echo $Insert;
+        $orderId = $conn->query("SELECT MAX (orderId FROM orders WHERE  username =  {$conn->quote($username)} ")->fetch(PDO::FETCH_ASSOC)['orderId'];
 
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        foreach($_SESSION["cartinfo"] as $product) {
+          $sInsert = "INSERT INTO orderitems(orderId,productId,size,colour, quantity,unitprice,discount )
+          VALUES ( {$conn->quote($orderId)}, {$conn->quote($product["productId"])}, {$conn->quote($product["size"])} ,
+          {$conn->quote($product["colour"])}, {$conn->quote($product["quantity"])} , {$conn->quote($product["unitprice"])} , {$conn->quote($product["discount"])});";
+          $conn->exec($sInsert);
+
+         $updateinventory =  "UPDATE inventory
+           SET stockLevel  = stockLevel - {$product["quantity"]}
+           WHERE productId = {$product["productId"]}
+           AND  size = {$product["size"]}
+           AND colour = {$product["colour"]};";
+           $conn->exec($updateinventory);
+      }
+
+
         
-        $addResult = $conn->exec($sInsert) ;
-        if($addResult )
-        {	
-            $Msg = "Record Saved!";
-            //echo $Msg;
-        }else{
-           $Msg = "ERROR: Record could not be Saved!";
-           //echo $Msg;
-           
-        }//end else
-        $conn==null;    
+      $conn=null;    
       }//end if	
     }//end if
+
 
  ?>
 
@@ -155,7 +144,7 @@ if (!isset($_SESSION["username"])) {
 
          <div class="wrapper payment-form">
             <h2>Payment Form</h2>
-            <form action="" method="post">
+            <form method="post" action="<?php echo $_SERVER["PHP_SELF"] ;?>" >
                 <!--Account Information Start-->
                 <h4>Account</h4>
                 <div class="input_group">
@@ -235,7 +224,7 @@ if (!isset($_SESSION["username"])) {
                 
                 <div class="input_group">
                     <div class="input_box">
-                        <button type="submit">PAY NOW</button>
+                        <input type="submit" value = "PAY NOW"></input>
                     </div>
                 </div>    
             </form>
