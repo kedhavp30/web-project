@@ -148,12 +148,12 @@ VALUES  (1, "S", "Blue", 10, 100),
 
 /* PaymentInfo table */
 /* One used for all orders */
-INSERT INTO paymentinfo(creditCardId, creditCardpin, creditCardNo)
-VALUES  (1234567, 1234, 1);
+INSERT INTO paymentinfo(creditCardpin, creditCardNo)
+VALUES  (1234, 1);
 
 /* Orders table */
 /* For one user */
-INSERT INTO orders(status, orderDate, paymentId, username)
+INSERT INTO orders(status, orderDate, creditCardId, username)
 VALUES  ("Pending", "2022-03-25", 1, "hdsmathew"),
         ("Delivered", "2022-03-23", 1, "hdsmathew"),
         ("Pending", "2022-03-25", 1, "hdsmathew"),
