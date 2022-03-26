@@ -10,7 +10,7 @@ const createNav = () => {
           <button class="mysearch-btn">search</button>
         </div>
         <a href="editprofile.php"><i class="fa fa-user" ></i></a>
-        <a href="cart.html"><i class="fa fa-shopping-cart" ></i></a>
+        <a href="cart.php"><i class="fa fa-shopping-cart" ></i></a>
       </div>
       </div>
       <ul class="mylinks-container">
