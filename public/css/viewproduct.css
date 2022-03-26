@@ -19,12 +19,12 @@
 .product-container{
     padding: 0 10vw;
     display:flex;
-    overflow-x:auto;
+    overflow-x:scroll;
     scroll-behavior: smooth;
 }
 
 .product-container::-webkit-scrollbar{
-    display:none
+    display:none;
 }
 
 .product-card{
