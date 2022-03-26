@@ -112,7 +112,7 @@
         $customerParams = "";
         $lastKey = array_key_last($customerInfoArr);
         foreach($customerInfoArr as $key => $value) {
-          if (key($customerInfoArr) != $lastKey) {
+          if ($key != $lastKey) {
             $customerParams .= ($key . "=" . $conn->quote($value) . ",");
             continue;
           }
