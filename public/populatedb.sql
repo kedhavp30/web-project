@@ -190,3 +190,14 @@ VALUES  (1, "2022-03-30", "Nice!", 0, 1, 1),
         (14, "2022-03-25", "Very Very Nice!", 0, 3, 1),
         (1, "2022-03-25", "Nice Nice!", 0, 4, 1),
         (10, "2022-03-30", "Nice Nice Nice!", 0, 5, 1);
+
+
+/* Cart table */
+/* For one username */
+INSERT INTO cart(username, productId, size, colour, unitPrice, discount, quantity)
+VALUES  ("hdsmathew", 13, "M", "Blue", 150, 0, 2),
+        ("hdsmathew", 2, "M", "Red", 100, 0, 2),   
+        ("hdsmathew", 3, "L", "Red", 100, 0, 2),   
+        ("hdsmathew", 4, "S", "Blue", 100, 0, 2),   
+        ("hdsmathew", 6, "S", "Blue", 200, 0, 2),   
+        ("hdsmathew", 11, "M", "Blue", 150, 0, 2);
