@@ -9,7 +9,7 @@ const createNav = () => {
           <input type="text" class="mysearch-box" placeholder="Search products">
           <button class="mysearch-btn">search</button>
         </div>
-        <a href="editprofile.php"><i class="fa fa-user" ></i></a>
+        <a href="editprofile.php" ><i class="fa fa-user" ></i></a>
         <a href="cart.php"><i class="fa fa-shopping-cart" ></i></a>
       </div>
       </div>
