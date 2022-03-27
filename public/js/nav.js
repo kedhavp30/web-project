@@ -5,10 +5,12 @@ const createNav = () => {
       <div class="mynav">
       <img src="img/logo.jpeg " alt="logo" class="mybrand-logo">
       <div class="mynav-items">
+      <form method="post" action="searchproduct.php" >
         <div class="mysearch">
-          <input type="text" class="mysearch-box" placeholder="Search products">
-          <button class="mysearch-btn">search</button>
+          <input type="text" class="mysearch-box" name="searchbox" placeholder="Search products">
+          <button class="mysearch-btn" value="searchvalue" name="search">search</button>
         </div>
+      </form>
         <a href="editprofile.php"><i class="fa fa-user" ></i></a>
         <a href="cart.php"><i class="fa fa-shopping-cart" ></i></a>
       </div>

@@ -1,5 +1,6 @@
 const createFooter = () => {
     let footer=document.querySelector('footer');
+    let mylink = "searchproduct.php?category=T-shirt";
 
     footer.innerHTML = `<footer>
     <div class="footer-content">
@@ -7,14 +8,14 @@ const createFooter = () => {
         <div class="footer-ul-container">
             <ul class="category">
                 <li class = "category-title"> Men </li>
-                <li><a href="#" class="footer-link">T-shirts</a></li>
-                <li><a href="#" class="footer-link">Hoodies</a></li>
-                <li><a href="#" class="footer-link">Shirts</a></li>
-                <li><a href="#" class="footer-link">Jeans</a></li>
-                <li><a href="#" class="footer-link">Trousers</a></li>
-                <li><a href="#" class="footer-link">Shoes</a></li>
-                <li><a href="#" class="footer-link">Sportswear</a></li>
-                <li><a href="#" class="footer-link">Joggers</a></li>
+                <li><a href="${mylink}" class="footer-link">T-shirt</a></li>
+                <li><a href="searchproduct.php?category=Hoodie" class="footer-link">Hoodies</a></li>
+                <li><a href="searchproduct.php?category=Shirt" class="footer-link">Shirts</a></li>
+                <li><a href="searchproduct.php?category=Jean" class="footer-link">Jeans</a></li>
+                <li><a href="searchproduct.php?category=Trousers" class="footer-link">Trousers</a></li>
+                <li><a href="searchproduct.php?category=Shoes" class="footer-link">Shoes</a></li>
+                <li><a href="searchproduct.php?category=Sportswear" class="footer-link">Sportswear</a></li>
+                <li><a href="searchproduct.php?category=Jogger" class="footer-link">Joggers</a></li>
           </ul>
           <ul class="category">
             <li class = "category-title"> Women </li>
