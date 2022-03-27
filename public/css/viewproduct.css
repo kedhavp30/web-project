@@ -49,11 +49,11 @@
     padding-top:10px;
 }
 
-.product-brand{
+.product-name{
     text-transform:uppercase;
 }
 
-.product-short-desc{
+.category-short-des{
     width:100%;
     height:20px;
     line-height:20px;
@@ -153,12 +153,12 @@
     border-bottom: 5px solid #383838;
 }
 
-.details .product-brand{
+.details .product-name{
     text-transform: capitalize;
     font-size:30px;
 }
 
-.details .product-short-des{
+.details .category-short-des{
     font-size: 25px;
     line-height: 30px;
     height: auto;
@@ -442,11 +442,11 @@
     padding-top:10px;
   }
   
-  .product-brand{
+  .product-name{
     text-transform:uppercase;
   }
   
-  .product-short-desc{
+  .category-short-des{
     width:100%;
     height:20px;
     line-height:20px;
