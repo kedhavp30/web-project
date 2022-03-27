@@ -4,7 +4,7 @@
 	require_once "includes/db_connect.php";
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	// Initialize empty array if it doens't exist yet
+	// Initialize empty array if it doesn't exist yet
 	if (!isset($_SESSION["cart"])) {
 		$_SESSION["cart"] = array();
 	}
@@ -81,7 +81,7 @@
 							echo "<p class='unit'>Quantity: <input type='number' name='quantity' value='{$product["quantity"]}' max='100' min='1'></p>";
 							echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>
 										<input type='text' hidden name='productId' value='{$productId}'>
-										<input type='submit' class='btn-area' value='Remove'>
+										<button class='btn-area'><i class='fa fa-trash'></i>Remove</button>
 										</form>";
 							echo "</div>";
 							echo "</div>";	
