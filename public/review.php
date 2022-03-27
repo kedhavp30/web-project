@@ -31,7 +31,7 @@
     $productQueryResult = $conn->query($productQuery);
     // User didn't buy that product or already reviewed
     if ( !$productQueryResult->fetchColumn() ) {
-      header("Location: viewproduct.php?productid={$_SESSION["productid"]}&size={$_SESSION["size"]}&colour={$_SESSION["colour"]}");
+      header("Location: viewproduct.php?productid={$_SESSION["productid"]}");
       die();
     }
   }
@@ -89,7 +89,7 @@
       $conn->commit();
       $conn = null;
 
-      header("Location: viewproduct.php?productid={$_SESSION["productid"]}&size={$_SESSION["size"]}&colour={$_SESSION["colour"]}");
+      header("Location: viewproduct.php?productid={$_SESSION["productid"]}");
       die();
     }
   }
