@@ -21,17 +21,17 @@
     $_SESSION["colour"] = $_GET["colour"];
 
     $productQuery = "SELECT * FROM orders 
-                    INNER JOIN orderitems ON orders.orderid = orderitems.orderid
-                    WHERE orders.username = {$conn->quote($username)}
-                    AND orderitems.productid = {$conn->quote($_SESSION["productid"])}
-                    AND orderitems.size = {$conn->quote($_SESSION["size"])}
-                    AND orderitems.colour = {$conn->quote($_SESSION["colour"])}
-                    AND orderitems.reviewed = 0;";
+                     INNER JOIN orderitems ON orders.orderId = orderitems.orderId
+                     WHERE orders.username = {$conn->quote($username)}
+                     AND orderitems.productId = {$conn->quote($_SESSION["productid"])}
+                     AND orderitems.size = {$conn->quote($_SESSION["size"])}
+                     AND orderitems.colour = {$conn->quote($_SESSION["colour"])}
+                     AND orderitems.reviewed = 0;";
 
     $productQueryResult = $conn->query($productQuery);
     // User didn't buy that product or already reviewed
     if ( !$productQueryResult->fetchColumn() ) {
-      header("Location: viewproduct.html?productid={$_SESSION["productid"]}&size={$_SESSION["size"]}&colour={$_SESSION["colour"]}");
+      header("Location: viewproduct.php?productid={$_SESSION["productid"]}");
       die();
     }
   }
@@ -56,16 +56,16 @@
       $customerid = $conn->query("SELECT customerid FROM customer WHERE username = {$conn->quote($username)}")
                     ->fetch(PDO::FETCH_ASSOC)["customerid"];
 
-      $reviewQuery = "INSERT INTO review(productId, postedOn, reviewDesc, flag, rating, customerid)
+      $reviewQuery = "INSERT INTO review(productId, postedOn, reviewDesc, flag, rating, customerId)
                       VALUES ({$conn->quote($_SESSION["productid"])}, {$conn->quote(date("Y-m-d"))}, {$conn->quote($comment)}, 0, {$rate}, {$customerid})";
 
       $updateOrderItemQuery = "UPDATE orderitems
                               SET reviewed = 1
-                              WHERE orderid IN (SELECT orderid
+                              WHERE orderid IN (SELECT orderId
                                                 FROM orders
                                                 WHERE username = {$conn->quote($username)}
                                                 AND orders.status = 'Delivered')
-                              AND productid = {$conn->quote($_SESSION["productid"])}
+                              AND productId = {$conn->quote($_SESSION["productid"])}
                               AND size = {$conn->quote($_SESSION["size"])}
                               AND colour = {$conn->quote($_SESSION["colour"])}
                               AND reviewed = 0";
@@ -89,7 +89,7 @@
       $conn->commit();
       $conn = null;
 
-      header("Location: viewproduct.html?productid={$_SESSION["productid"]}&size={$_SESSION["size"]}&colour={$_SESSION["colour"]}");
+      header("Location: viewproduct.php?productid={$_SESSION["productid"]}");
       die();
     }
   }
