@@ -149,16 +149,16 @@ VALUES  (1, "S", "Blue", 10, 100),
 /* PaymentInfo table */
 /* One used for all orders */
 INSERT INTO paymentinfo(creditCardpin, creditCardNo)
-VALUES  (1234, 1);
+VALUES  (1234, 1234567);
 
 /* Orders table */
 /* For one user */
-INSERT INTO orders(status, orderDate, creditCardId, username)
-VALUES  ("Pending", "2022-03-25", 1, "hdsmathew"),
-        ("Delivered", "2022-03-23", 1, "hdsmathew"),
-        ("Pending", "2022-03-25", 1, "hdsmathew"),
-        ("Delivered", "2022-03-22", 1, "hdsmathew"),
-        ("Pending", "2022-03-25", 1, "hdsmathew");
+INSERT INTO orders(status, orderDate, creditCardNo, username)
+VALUES  ("Pending", "2022-03-25", 1234567, "hdsmathew"),
+        ("Delivered", "2022-03-23", 1234567, "hdsmathew"),
+        ("Pending", "2022-03-25", 1234567, "hdsmathew"),
+        ("Delivered", "2022-03-22", 1234567, "hdsmathew"),
+        ("Pending", "2022-03-25", 1234567, "hdsmathew");
 
 /* OrderItems table */
 INSERT INTO orderitems(orderId, productId, size, colour, quantity, unitPrice, discount, reviewed)
