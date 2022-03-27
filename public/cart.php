@@ -21,7 +21,7 @@
 	}	
 
 	// Registered users; retrieve cart items from db if not yet and cart session empty
-	if (isset($_SESSION["username"]) && !isset($_SESSION["cart"])) {
+	if (isset($_SESSION["username"]) && !$_SESSION["cart"]) {
 		$cartQuery = "SELECT cart.productId, size, colour, quantity, cart.unitPrice, cart.discount, prodName, picture
 									FROM cart INNER JOIN product ON cart.productId = product.productId
 									WHERE username = {$conn->quote($_SESSION["username"])};";
