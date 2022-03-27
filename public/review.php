@@ -21,12 +21,12 @@
     $_SESSION["colour"] = $_GET["colour"];
 
     $productQuery = "SELECT * FROM orders 
-                    INNER JOIN orderitems ON orders.orderid = orderitems.orderid
-                    WHERE orders.username = {$conn->quote($username)}
-                    AND orderitems.productid = {$conn->quote($_SESSION["productid"])}
-                    AND orderitems.size = {$conn->quote($_SESSION["size"])}
-                    AND orderitems.colour = {$conn->quote($_SESSION["colour"])}
-                    AND orderitems.reviewed = 0;";
+                     INNER JOIN orderitems ON orders.orderid = orderitems.orderid
+                     WHERE orders.username = {$conn->quote($username)}
+                     AND orderitems.productid = {$conn->quote($_SESSION["productid"])}
+                     AND orderitems.size = {$conn->quote($_SESSION["size"])}
+                     AND orderitems.colour = {$conn->quote($_SESSION["colour"])}
+                     AND orderitems.reviewed = 0;";
 
     $productQueryResult = $conn->query($productQuery);
     // User didn't buy that product or already reviewed
