@@ -57,13 +57,13 @@
                       VALUES ({$conn->quote($_SESSION["productid"])}, {$conn->quote(date("Y-m-d"))}, {$conn->quote($comment)}, 0, {$rate}, {$customerid})";
 
       $updateOrderItemQuery = "UPDATE orderitems
-                              SET reviewed = 1
-                              WHERE orderid IN (SELECT orderId
-                                                FROM orders
-                                                WHERE username = {$conn->quote($username)}
-                                                AND orders.status = 'Delivered')
-                              AND productId = {$conn->quote($_SESSION["productid"])}
-                              AND reviewed = 0";
+                               SET reviewed = 1
+                               WHERE orderid IN (SELECT orderId
+                                                 FROM orders
+                                                 WHERE username = {$conn->quote($username)}
+                                                 AND orders.status = 'Delivered')
+                               AND productId = {$conn->quote($_SESSION["productid"])}
+                               AND reviewed = 0";
 
       $conn->beginTransaction();
 
