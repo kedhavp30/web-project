@@ -162,141 +162,136 @@
     </div>
   </section>
 
-<section class="detail-des">
-    <h2 class="heading">Description</h2>
-    <p class="des"><?php echo $_SESSION["{$productId}"]["prodDesc"]; ?></p>
+  <section class="detail-des">
+      <h2 class="heading">Description</h2>
+      <p class="des"><?php echo $_SESSION["{$productId}"]["prodDesc"]; ?></p>
+  </section>
 
-</section>
-<!--reviews------------------->
-<section id="reviews">
-  <!--heading--->
-  <div class="review-heading">
-    <span>Reviews</span>
-    <span id="review-link">Please review our <a href="review.php?<?php echo "productid={$productId}"; ?>">product</a></span>
-  </div>
-  <!--reviews-box-container------>
-  <div class="review-box-container">
+  <!--reviews------------------->
+  <section id="reviews">
+    <!--heading--->
+    <div class="review-heading">
+      <span>Reviews</span>
+      <span id="review-link">Please review our <a href="review.php?<?php echo "productid={$productId}"; ?>">product</a></span>
+    </div>
+    <!--reviews-box-container------>
+    <div class="review-box-container">
 
-    <?php    
-      forEach($_SESSION["{$productId}"]["reviews"] as $review) {
-        // <!--BOX--------------->
-        echo "<div class='review-box'>";
-          // <!--top------------------------->
-          echo "<div class='box-top'>";
-            // <!--profile----->
-            echo "<div class='profile'>";
-              // <!--img---->
-              echo "<div class='profile-img'>";
-              echo "<img src='img/Kai.webp' />";
+      <?php    
+        forEach($_SESSION["{$productId}"]["reviews"] as $review) {
+          // <!--BOX--------------->
+          echo "<div class='review-box'>";
+            // <!--top------------------------->
+            echo "<div class='box-top'>";
+              // <!--profile----->
+              echo "<div class='profile'>";
+                // <!--img---->
+                echo "<div class='profile-img'>";
+                echo "<img src='img/Kai.webp' />";
+                echo "</div>";
+                // <!--name-and-username-->
+                echo "<div class='name-user'>";
+                echo "<strong>{$review["firstName"]} {$review["lastName"]}</strong>";
+                echo "<span>@{$review["username"]}</span>";
+                echo "</div>";
               echo "</div>";
-              // <!--name-and-username-->
-              echo "<div class='name-user'>";
-              echo "<strong>{$review["firstName"]} {$review["lastName"]}</strong>";
-              echo "<span>@{$review["username"]}</span>";
-              echo "</div>";
-            echo "</div>";
-            // <!--reviews------>
-            echo "<div class='reviews'>";
-        
-            for ($star = 0, $full = $review['rating']; $star < 5; $star++, $full--) {
-              if ($full > 0) {
-                echo "<i class='fa fa-star'></i>";
-                continue;
+              // <!--reviews------>
+              echo "<div class='reviews'>";
+          
+              for ($star = 0, $full = $review['rating']; $star < 5; $star++, $full--) {
+                if ($full > 0) {
+                  echo "<i class='fa fa-star'></i>";
+                  continue;
+                }
+                echo "<i class='fa fa-star-o'></i>";
               }
-              echo "<i class='fa fa-star-o'></i>";
-            }
 
+              echo "</div>";
+            echo "</div>";
+            // <!--Comments---------------------------------------->
+            echo "<div class='client-comment'>";
+            echo "<p>{$review["reviewDesc"]}</p>";
             echo "</div>";
           echo "</div>";
-          // <!--Comments---------------------------------------->
-          echo "<div class='client-comment'>";
-          echo "<p>{$review["reviewDesc"]}</p>";
+        }
+      ?>
+      
+    </div>
+  </section>
+
+  <!-- cards-container-->
+  <section class="product">
+    <h2 class="product-category">Shirts | Blouses</h2>
+    <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
+    <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
+
+    <div class="product-container">
+
+      <?php
+        foreach($_SESSION["suggestions"]["shirts"] as $shirt) {
+          $discountedPrice = 0;
+          $normalPriceClass = "no-discount";
+
+          echo "<div class='product-card'>";
+            echo "<div class='product-image'>";
+              if ($shirt["discount"]) {
+                echo "<span class='discount-tag'>{$shirt["discount"]}% off</span>";
+                $discountedPrice = number_format( ((100 - $shirt["discount"]) / 100) * $shirt["unitPrice"], 2 );
+                $normalPriceClass = "actual-price";
+              }
+              echo "<img src='img/{$shirt["picture"]}' class='product-thumb' alt=''>";
+              echo "<button class='card-btn'>Add To Cart</button>";
+            echo "</div>";
+            echo "<div class='product-info'>";
+              echo "<h2 class='product-name'>{$shirt["prodName"]}</h2>";
+              echo "<p class='product-short-des'>{$shirt["prodDesc"]}</p>";
+              if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
+              echo "<span class='{$normalPriceClass}'>{$shirt["unitPrice"]}</span>";
+            echo "</div>";
           echo "</div>";
-        echo "</div>";
-      }
-    ?>
-    
-  </div>
-</section>
+        }
+      ?>
 
-    
+    </div>
+  </section> 
 
-     
+  <!-- cards-container-->
+  <section class="product">
+    <h2 class="product-category">Shoes</h2>
+    <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
+    <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
 
+    <div class="product-container">
 
-<!-- cards-container-->
-<section class="product">
-  <h2 class="product-category">Shirts | Blouses</h2>
-  <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
-  <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
+      <?php
+        foreach($_SESSION["suggestions"]["shoes"] as $shoes) {
+          $discountedPrice = 0;
+          $normalPriceClass = "no-discount";
 
-  <div class="product-container">
-
-    <?php
-      foreach($_SESSION["suggestions"]["shirts"] as $shirt) {
-        $discountedPrice = 0;
-        $normalPriceClass = "no-discount";
-
-        echo "<div class='product-card'>";
-          echo "<div class='product-image'>";
-            if ($shirt["discount"]) {
-              echo "<span class='discount-tag'>{$shirt["discount"]}% off</span>";
-              $discountedPrice = number_format( ((100 - $shirt["discount"]) / 100) * $shirt["unitPrice"], 2 );
-              $normalPriceClass = "actual-price";
-            }
-            echo "<img src='img/{$shirt["picture"]}' class='product-thumb' alt=''>";
-            echo "<button class='card-btn'>Add To Cart</button>";
+          echo "<div class='product-card'>";
+            echo "<div class='product-image'>";
+              if ($shoes["discount"]) {
+                echo "<span class='discount-tag'>{$shoes["discount"]}% off</span>";
+                $discountedPrice = number_format( ((100 - $shoes["discount"]) / 100) * $shoes["unitPrice"], 2 );
+                $normalPriceClass = "actual-price";
+              }            
+              echo "<img src='img/{$shoes["picture"]}' class='product-thumb' alt=''>";
+              echo "<button class='card-btn'>Add To Cart</button>";
+            echo "</div>";
+            echo "<div class='product-info'>";
+              echo "<h2 class='product-name'>{$shoes["prodName"]}</h2>";
+              echo "<p class='product-short-des'>{$shoes["prodDesc"]}</p>";
+              if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
+              echo "<span class='{$normalPriceClass}'>{$shoes["unitPrice"]}</span>";
+            echo "</div>";
           echo "</div>";
-          echo "<div class='product-info'>";
-            echo "<h2 class='product-name'>{$shirt["prodName"]}</h2>";
-            echo "<p class='product-short-des'>{$shirt["prodDesc"]}</p>";
-            if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
-            echo "<span class='{$normalPriceClass}'>{$shirt["unitPrice"]}</span>";
-          echo "</div>";
-        echo "</div>";
-      }
-    ?>
+        }
+      ?>
 
-  </div>
-</section> 
+    </div>
+  </section> 
 
-<!-- cards-container-->
-<section class="product">
-  <h2 class="product-category">Shoes</h2>
-  <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
-  <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
-
-  <div class="product-container">
-
-    <?php
-      foreach($_SESSION["suggestions"]["shoes"] as $shoes) {
-        $discountedPrice = 0;
-        $normalPriceClass = "no-discount";
-
-        echo "<div class='product-card'>";
-          echo "<div class='product-image'>";
-            if ($shoes["discount"]) {
-              echo "<span class='discount-tag'>{$shoes["discount"]}% off</span>";
-              $discountedPrice = number_format( ((100 - $shoes["discount"]) / 100) * $shoes["unitPrice"], 2 );
-              $normalPriceClass = "actual-price";
-            }            
-            echo "<img src='img/{$shoes["picture"]}' class='product-thumb' alt=''>";
-            echo "<button class='card-btn'>Add To Cart</button>";
-          echo "</div>";
-          echo "<div class='product-info'>";
-            echo "<h2 class='product-name'>{$shoes["prodName"]}</h2>";
-            echo "<p class='product-short-des'>{$shoes["prodDesc"]}</p>";
-            if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
-            echo "<span class='{$normalPriceClass}'>{$shoes["unitPrice"]}</span>";
-          echo "</div>";
-        echo "</div>";
-      }
-    ?>
-
-  </div>
-</section> 
-
-<footer></footer>
+  <footer></footer>
 
   <script src="js/nav.js"></script>
   <script src="js/footer.js"></script>
