@@ -15,6 +15,10 @@
   flex: 60%;
 }
 
+.payment-form {
+  background-color: beige;
+}
+
 .wrapper h2 {
   background-color: #fcfcfc;
   color: #00acee;
