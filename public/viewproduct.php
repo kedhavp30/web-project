@@ -103,34 +103,32 @@
   }
 
 
-  // Retrieving suggestions from db if not yet
-  if (!isset($_SESSION["suggestions"])) {
+  // Suggestions
+  $shirtsQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
+                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
+                  WHERE categoryName = 'Shirt';";
 
-    $shirtsQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
-                    FROM product INNER JOIN category ON product.categoryId = category.categoryId
-                    WHERE categoryName = 'Shirt';";
-
-    // $blousesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
-    //                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
-    //                  WHERE categoryName = 'Blouse';";    
-                     
-    $shoesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
-                   FROM product INNER JOIN category ON product.categoryId = category.categoryId
-                   WHERE categoryName = 'Shoes';";
-                     
-                     
-    if (!isset($_SESSION["suggestions"]["shirts"])) {
-      $_SESSION["suggestions"]["shirts"] = $conn->query($shirtsQuery)->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // if (!isset($_SESSION["suggestions"]["blouses"])) {
-    //   $_SESSION["suggestions"]["blouses"] = $conn->query($blousesQuery)->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
-    if (!isset($_SESSION["suggestions"]["shoes"])) {
-      $_SESSION["suggestions"]["shoes"] = $conn->query($shoesQuery)->fetchAll(PDO::FETCH_ASSOC);
-    }    
+  // $blousesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
+  //                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
+  //                  WHERE categoryName = 'Blouse';";    
+                    
+  $shoesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
+                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
+                  WHERE categoryName = 'Shoes';";
+                    
+                    
+  if (!isset($_SESSION["suggestions"]["shirts"])) {
+    $_SESSION["suggestions"]["shirts"] = $conn->query($shirtsQuery)->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  // if (!isset($_SESSION["suggestions"]["blouses"])) {
+  //   $_SESSION["suggestions"]["blouses"] = $conn->query($blousesQuery)->fetchAll(PDO::FETCH_ASSOC);
+  // }
+
+  if (!isset($_SESSION["suggestions"]["shoes"])) {
+    $_SESSION["suggestions"]["shoes"] = $conn->query($shoesQuery)->fetchAll(PDO::FETCH_ASSOC);
+  }    
+
 
 
 
