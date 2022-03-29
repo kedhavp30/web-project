@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $query = "SELECT * FROM product
         INNER JOIN category ON category.categoryId = product.categoryId
         WHERE categoryName = {$conn->quote($category)}"; 
-        $result = $conn->query($squery) ;
+        $result = $conn->query($query) ;
 } else {
   if (isset($_POST['filter'])) {
     $squery = "SELECT * FROM product WHERE unitPrice>={$_POST['minrange']} AND unitPrice<={$_POST['maxrange']}";
@@ -26,12 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 }
 
 
-  
 ?>
-
-
-
-
 
 
 <!DOCTYPE html>
