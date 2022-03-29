@@ -2,15 +2,7 @@
     session_start();
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            
-        switch($_GET["referer"]) {
-            case "checkout":
-                $_SESSION["redirect"] = "checkout";
-                break;
-            default:
-                $_SESSION["redirect"] = "index";                
-                break;
-        }       
+        $_SESSION["redirect"] = isset($_GET["referer"]) ? $_GET["referer"] : "index";
     }
 
     if (isset($_SESSION["username"])) {
