@@ -292,7 +292,7 @@
                 $discountedPrice = number_format( ((100 - $shirt["discount"]) / 100) * $shirt["unitPrice"], 2 );
                 $normalPriceClass = "actual-price";
               }
-              echo "<img src='img/{$shirt["picture"]}' class='product-thumb' alt=''>";
+              echo "<a href='viewproduct.php?productid={$shirt["productId"]}'><img src='img/{$shirt["picture"]}' class='product-thumb' alt=''></a>";
               echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>";
                 echo "<input type='text' hidden name='productId' value='{$shirt["productId"]}'>";
                 echo "<input type='text' hidden name='prodName' value='{$shirt["prodName"]}'>";
@@ -335,7 +335,7 @@
                 $discountedPrice = number_format( ((100 - $shoes["discount"]) / 100) * $shoes["unitPrice"], 2 );
                 $normalPriceClass = "actual-price";
               }            
-              echo "<img src='img/{$shoes["picture"]}' class='product-thumb' alt=''>";
+              echo "<a href='viewproduct.php?productid={$shoes["productId"]}'><img src='img/{$shoes["picture"]}' class='product-thumb' alt=''></a>";
               echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>";
                 echo "<input type='text' hidden name='productId' value='{$shoes["productId"]}'>";
                 echo "<input type='text' hidden name='prodName' value='{$shoes["prodName"]}'>";
