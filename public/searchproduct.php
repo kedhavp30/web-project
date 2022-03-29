@@ -144,10 +144,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     </div>
                   </div>
                 
-            </div>
             <?php
             }
             ?>
+            </div>
         </section>
 
     </div>
