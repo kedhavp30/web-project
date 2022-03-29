@@ -13,9 +13,7 @@
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		$conn->query("DELETE FROM cart 
-									WHERE productId = {$_POST["productId"]}
-									AND size = {$conn->quote($_SESSION["cart"]["{$_POST["productId"]}"]["size"])}
-									AND colour = {$conn->quote($_SESSION["cart"]["{$_POST["productId"]}"]["colour"])}");
+									WHERE productId = {$_POST["productId"]};");
 									
 		unset($_SESSION["cart"]["{$_POST["productId"]}"]);
 	}	
@@ -32,13 +30,21 @@
 
 			// Session variable cart contains productId as key and product info as value
 			forEach($cartQueryResult->fetchAll(PDO::FETCH_ASSOC) as $product) {
-				$_SESSION["cart"]["{$product["productId"]}"] = array("size"=>"{$product["size"]}",
-																															"colour"=>"{$product["colour"]}",
+
+				if (isset($_SESSION["cart"]["{$product["productId"]}"])) {
+					$_SESSION["cart"]["{$product["productId"]}"]["quantity"] += $product["quantity"];
+					$_SESSION["cart"]["{$product["productId"]}"]["size_colour_qty"]["{$product["size"]}_{$product["colour"]}"] = $product["quantity"];
+					continue;
+				}
+
+				$size_colour_qty = array("{$product["size"]}_{$product["colour"]}"=>"{$product["quantity"]}");
+				$_SESSION["cart"]["{$product["productId"]}"] = array( "size_colour_qty"=>$size_colour_qty,
 																															"quantity"=>"{$product["quantity"]}",
 																															"unitPrice"=>"{$product["unitPrice"]}",
 																															"discount"=>"{$product["discount"]}",
 																															"prodName"=>"{$product["prodName"]}",
 																															"picture"=>"{$product["picture"]}");
+
 			}
 		}
 	}
@@ -73,9 +79,18 @@
 							echo "<div class='box'>";
 							echo "<img src='img/{$product["picture"]}'>";
 							echo "<div class='content'>";
-							echo "<h3>{$product["prodName"]}</h3>";
-							echo "<h4><span class='product-colour'>Colour: {$product["colour"]}</span><span class='product-size'>Size: {$product["size"]}</span>Price: Rs {$product["unitPrice"]}</h4>";
-							echo "<p class='unit'>Quantity: <input type='number' name='quantity' value='{$product["quantity"]}' max='100' min='1'></p>";
+							echo "<h3 style='display:flex;justify-content:space-between;'><span>{$product["prodName"]}</span><span>Price: Rs {$product["unitPrice"]}</span></h3>";
+
+							foreach($product["size_colour_qty"] as $size_colour => $qty) {
+								list($size, $colour) = explode("_", $size_colour);
+
+								echo "<h4>";
+								echo "<span class='product-colour'>Colour: {$colour}</span>";
+								echo "<span class='product-size'>Size: {$size}</span>";
+								echo "<span class='unit'>Quantity: <input type='number' name='quantity' value='{$qty}' max='100' min='1'></span>";
+								echo "</h4>";
+							}
+
 							echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>
 										<input type='text' hidden name='productId' value='{$productId}'>
 										<button class='btn-area'><i class='fa fa-trash'></i>Remove</button>

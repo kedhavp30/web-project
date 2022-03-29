@@ -16,17 +16,26 @@
 									WHERE username = {$conn->quote($_SESSION["username"])};";
 
 		$cartQueryResult = $conn->query($cartQuery);
+
 		if ($cartQueryResult->rowCount()) {
 
 			// Session variable cart contains productId as key and product info as value
 			forEach($cartQueryResult->fetchAll(PDO::FETCH_ASSOC) as $product) {
-				$_SESSION["cart"]["{$product["productId"]}"] = array("size"=>"{$product["size"]}",
-																															"colour"=>"{$product["colour"]}",
+
+				if (isset($_SESSION["cart"]["{$product["productId"]}"])) {
+					$_SESSION["cart"]["{$product["productId"]}"]["quantity"] += $product["quantity"];
+					$_SESSION["cart"]["{$product["productId"]}"]["size_colour_qty"]["{$product["size"]}_{$product["colour"]}"] = $product["quantity"];
+					continue;
+				}
+
+				$size_colour_qty = array("{$product["size"]}_{$product["colour"]}"=>"{$product["quantity"]}");
+				$_SESSION["cart"]["{$product["productId"]}"] = array( "size_colour_qty"=>$size_colour_qty,
 																															"quantity"=>"{$product["quantity"]}",
 																															"unitPrice"=>"{$product["unitPrice"]}",
 																															"discount"=>"{$product["discount"]}",
 																															"prodName"=>"{$product["prodName"]}",
 																															"picture"=>"{$product["picture"]}");
+
 			}
 		}
 	}
@@ -34,60 +43,120 @@
   // GET request for productId
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    $productId = $_GET["productid"];
-    // productId info not yet retrieved from db
-    if (!isset($_SESSION["{$productId}"])) {
+    $productQuery = "SELECT prodName, prodDesc, unitPrice, discount, picture, categoryName
+                      FROM product INNER JOIN category ON product.categoryId = category.categoryId
+                      WHERE productId = {$conn->quote($_GET["productid"])}";
 
-      $productQuery = "SELECT prodName, prodDesc, unitPrice, discount, picture, categoryName
-                       FROM product INNER JOIN category ON product.categoryId = category.categoryId
-                       WHERE productId = {$conn->quote($_GET["productid"])}";
-
-      $productQueryResult = $conn->query($productQuery);
-      if ($productQueryResult->rowCount()) {
-        $product = $productQueryResult->fetch(PDO::FETCH_ASSOC);
-        
-        // Session variable $productId contains productId as key and product info as value
-        $_SESSION["{$productId}"] = array("size"=>"{$_GET["size"]}",
-                                          "colour"=>"{$_GET["colour"]}",
-                                          "unitPrice"=>"{$product["unitPrice"]}",
+    $productQueryResult = $conn->query($productQuery);
+    if ($productQueryResult->rowCount()) {
+      $product = $productQueryResult->fetch(PDO::FETCH_ASSOC);
+      
+      // Session variable $productId contains productId as key and product info as value
+      $_SESSION["viewedproduct"] = array("unitPrice"=>"{$product["unitPrice"]}",
                                           "discount"=>"{$product["discount"]}",
                                           "prodName"=>"{$product["prodName"]}",
                                           "prodDesc"=>"{$product["prodDesc"]}",
                                           "categoryName"=>"{$product["categoryName"]}",
                                           "picture"=>"{$product["picture"]}");
 
-        $_SESSION["{$productId}"]["discountedPrice"] = ((100 - $product["discount"]) / 100) * $product["unitPrice"];                                       
-      }
+      $_SESSION["viewedproduct"]["discountedPrice"] = ((100 - $product["discount"]) / 100) * $product["unitPrice"];                                       
+    }
 
-      // Retrieving reviews for productId
-      $_SESSION["{$productId}"]["reviews"] = $conn->query("SELECT reviewDesc, rating, firstName, lastName, username
-                                                           FROM review INNER JOIN customer ON review.customerId = customer.customerId
-                                                           WHERE productId = {$conn->quote($productId)};")
+    // Retrieving reviews for productId
+    $_SESSION["viewedproduct"]["reviews"] = $conn->query("SELECT reviewDesc, rating, firstName, lastName, username
+                                                          FROM review INNER JOIN customer ON review.customerId = customer.customerId
+                                                          WHERE productId = {$conn->quote($_GET["productid"])};")
                                                   ->fetchAll(PDO::FETCH_ASSOC);
 
-      $_SESSION["{$productId}"]["avgRating"] = number_format($conn->query("SELECT AVG(rating) AS avgRating
-                                                                           FROM review
-                                                                           WHERE productId = {$conn->quote($productId)}")
+    $_SESSION["viewedproduct"]["avgRating"] = number_format($conn->query("SELECT AVG(rating) AS avgRating
+                                                                          FROM review
+                                                                          WHERE productId = {$conn->quote($_GET["productid"])}")
                                                                   ->fetch(PDO::FETCH_ASSOC)["avgRating"], 1);
-      $_SESSION["{$productId}"]["totalReviews"] = count($_SESSION["{$productId}"]["reviews"]);                                                 
+    $_SESSION["viewedproduct"]["totalReviews"] = count($_SESSION["viewedproduct"]["reviews"]);   
+    $_SESSION["viewedproduct"]["productId"] = $_GET["productid"];                                               
+  }
+
+  // POST request for Add to cart
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $size = isset($_POST["size"]) ? $_POST["size"] : "M"; // default size
+    $colour = isset($_POST["colour"]) ? $_POST["colour"] : "Blue"; // default colour
+
+    // Cart empty or product not in cart
+    if (!$_SESSION["cart"] || !isset($_SESSION["cart"]["{$_POST["productId"]}"])) {
+      $size_colour_qty = array("{$size}_{$colour}"=>"1");
+      $_SESSION["cart"]["{$_POST["productId"]}"] = array( "size_colour_qty"=>$size_colour_qty,
+                                                          "quantity"=>"1",
+                                                          "unitPrice"=>"{$_POST["unitPrice"]}",
+                                                          "discount"=>"{$_POST["discount"]}",
+                                                          "prodName"=>"{$_POST["prodName"]}",
+                                                          "picture"=>"{$_POST["picture"]}");
+
+    } else { // product in cart"
+      $_SESSION["cart"]["{$_POST["productId"]}"]["quantity"]++;
+
+      if (isset($_SESSION["cart"]["{$_POST["productId"]}"]["size_colour_qty"]["{$size}_{$colour}"])) {
+        $_SESSION["cart"]["{$_POST["productId"]}"]["size_colour_qty"]["{$size}_{$colour}"]++;
+      } else {
+        $_SESSION["cart"]["{$_POST["productId"]}"]["size_colour_qty"]["{$size}_{$colour}"] = 1;        
+      }
+    }
+
+    // Updating cart table if user is registered
+    if (isset($_SESSION["username"])) {
+      $cartQueryResult = $conn->query("SELECT * FROM cart 
+                                       WHERE username = {$conn->quote($_SESSION["username"])}
+                                       AND productId = {$_POST["productId"]}
+                                       AND size = {$conn->quote($size)}
+                                       AND colour = {$conn->quote($colour)}");
+                                   
+      // Product in cart table
+      if ($cartQueryResult->rowCount()) {
+        $conn->exec("UPDATE cart
+                     SET quantity = quantity + 1
+                     WHERE username = {$conn->quote($_SESSION["username"])}
+                     AND productId = {$_POST["productId"]}
+                     AND size = {$conn->quote($size)}
+                     AND colour = {$conn->quote($colour)}");
+      } else {
+        $conn->exec("INSERT INTO cart(productId, size, colour, quantity, unitPrice, discount, username)
+                     VALUES({$_POST["productId"]}, {$conn->quote($size)}, {$conn->quote($colour)}, 1, {$_POST["unitPrice"]}, 
+                            {$_POST["discount"]}, {$conn->quote($_SESSION["username"])})");
+      }
     }
   }
 
 
-  // Retrieving suggestions from db if not yet
-  if (!isset($_SESSION["suggestions"])) {
+  /* Cannot add to cart */
+  /* NOTE: shirts, shoes not in inventory yet */
+  /* NOTE: blouses not in inventory nor in product yet */
 
+  // Suggestions
+  $shirtsQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
+                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
+                  WHERE categoryName = 'Shirt';";
+
+  // $blousesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
+  //                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
+  //                  WHERE categoryName = 'Blouse';";    
+                    
+  $shoesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
+                 FROM product INNER JOIN category ON product.categoryId = category.categoryId
+                 WHERE categoryName = 'Shoes';";
+                    
+                    
+  if (!isset($_SESSION["suggestions"]["shirts"])) {
+    $_SESSION["suggestions"]["shirts"] = $conn->query($shirtsQuery)->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  // if (!isset($_SESSION["suggestions"]["blouses"])) {
+  //   $_SESSION["suggestions"]["blouses"] = $conn->query($blousesQuery)->fetchAll(PDO::FETCH_ASSOC);
+  // }
 
-
-
+  if (!isset($_SESSION["suggestions"]["shoes"])) {
+    $_SESSION["suggestions"]["shoes"] = $conn->query($shoesQuery)->fetchAll(PDO::FETCH_ASSOC);
+  }    
 
 ?>
-
-
-
-
 
 
 
@@ -112,141 +181,184 @@
   <nav class="mynavbar"></nav>
 
   <section class="product-details">
-    <div class="image-slider">
-      <div class="product-images">
-        <img src = "img/product image 1.png" class="active" alt="">
-        <img src = "img/product image 2.png" alt="">
-        <img src = "img/product image 3.png" alt="">
-        <img src = "img/product image 4.png" alt="">
-      </div>
+    <div class="image-slider" style="background-image: url('img/<?php echo $_SESSION["viewedproduct"]["picture"]; ?>');">
     </div>
     <div class="details">
-      <h2 class="product-name"><?php echo $_SESSION["{$productId}"]["prodName"]; ?></h2>
-      <p class="category-short-des"><?php echo $_SESSION["{$productId}"]["categoryName"]; ?></p>
+      <h2 class="product-name"><?php echo $_SESSION["viewedproduct"]["prodName"]; ?></h2>
+      <p class="category-short-des"><?php echo $_SESSION["viewedproduct"]["categoryName"]; ?></p>
       <p class="divider"></p>
-      <span class="product-rating">Rating: <?php echo $_SESSION["{$productId}"]["totalReviews"] ? "{$_SESSION["{$productId}"]["avgRating"]}/5 ({$_SESSION["{$productId}"]["totalReviews"]} review/s)" : "No reviews yet"; ?></span> <br/><br/>
-      <span class="product-price" <?php if (!$_SESSION["{$productId}"]["discount"]) echo "hidden"; ?>>Rs <?php echo $_SESSION["{$productId}"]["discountedPrice"]; ?></span>
-      <span class="product-actual-price" <?php if (!$_SESSION["{$productId}"]["discount"]) echo "style='text-decoration: none; margin-left: 0px;'"; ?>>
-        Rs <?php echo $_SESSION["{$productId}"]["unitPrice"]; ?>
+      <span class="product-rating">Rating: <?php echo $_SESSION["viewedproduct"]["totalReviews"] ? "{$_SESSION["viewedproduct"]["avgRating"]}/5 ({$_SESSION["viewedproduct"]["totalReviews"]} review/s)" : "No reviews yet"; ?></span> <br/><br/>
+      <span class="product-price" <?php if (!$_SESSION["viewedproduct"]["discount"]) echo "hidden"; ?>>Rs <?php echo $_SESSION["viewedproduct"]["discountedPrice"]; ?></span>
+      <span class="product-actual-price" <?php if (!$_SESSION["viewedproduct"]["discount"]) echo "style='text-decoration: none; margin-left: 0px;'"; ?>>
+        Rs <?php echo $_SESSION["viewedproduct"]["unitPrice"]; ?>
       </span>
-      <span class="product-discount" <?php if (!$_SESSION["{$productId}"]["discount"]) echo "hidden"; ?>>(<?php echo $_SESSION["{$productId}"]["discount"]; ?>% off)</span>
+      <span class="product-discount" <?php if (!$_SESSION["viewedproduct"]["discount"]) echo "hidden"; ?>>(<?php echo $_SESSION["viewedproduct"]["discount"]; ?>% off)</span>
       
-      <p class="product-sub-heading">select size</p>
-      <div class="sizes">
-        <input type="radio" name="size" value="s" checked hidden id="s-size"> 
-        <label for = "s-size" class="size-radio-btn check">s</label>
-        <input type="radio" name="size" value="m" hidden id="m-size"> 
-        <label for = "m-size" class="size-radio-btn">m</label>
-        <input type="radio" name="size" value="l" hidden id="l-size"> 
-        <label for = "l-size" class="size-radio-btn">l</label>
-      </div>
-      <button class="btn cart-btn">Add To Cart</button>
+      <form action="" method="POST">      
+        <p class="product-sub-heading">select size</p>
+        <div class="sizes">
+          <input type="radio" name="size" value="S" checked hidden id="s-size"> 
+          <label for = "s-size" class="size-radio-btn check">s</label>
+          <input type="radio" name="size" value="M" hidden id="m-size"> 
+          <label for = "m-size" class="size-radio-btn">m</label>
+          <input type="radio" name="size" value="L" hidden id="l-size"> 
+          <label for = "l-size" class="size-radio-btn">l</label>
+        </div>
+      
+        <input type="text" hidden name="productId" value="<?php echo $_SESSION["viewedproduct"]["productId"]; ?>">
+        <input type="text" hidden name="prodName" value="<?php echo $_SESSION["viewedproduct"]["prodName"]; ?>">
+        <input type="text" hidden name="picture" value="<?php echo $_SESSION["viewedproduct"]["picture"]; ?>">
+        <input type="text" hidden name="unitPrice" value="<?php echo $_SESSION["viewedproduct"]["unitPrice"]; ?>">
+        <input type="text" hidden name="discount" value="<?php echo $_SESSION["viewedproduct"]["discount"]; ?>">
+        <button class="btn cart-btn">Add To Cart</button>
+      </form>
     </div>
   </section>
 
-<section class="detail-des">
-    <h2 class="heading">Description</h2>
-    <p class="des"><?php echo $_SESSION["{$productId}"]["prodDesc"]; ?></p>
+  <section class="detail-des">
+      <h2 class="heading">Description</h2>
+      <p class="des"><?php echo $_SESSION["viewedproduct"]["prodDesc"]; ?></p>
+  </section>
 
-</section>
-<!--reviews------------------->
-<section id="reviews">
-  <!--heading--->
-  <div class="review-heading">
-    <span>Reviews</span>
-    <span id="review-link">Please review our <a href="review.php?<?php echo "productid={$productId}"; ?>">product</a></span>
-  </div>
-  <!--reviews-box-container------>
-  <div class="review-box-container">
-
-    <?php    
-      forEach($_SESSION["{$productId}"]["reviews"] as $review) {
-        // <!--BOX--------------->
-        echo "<div class='review-box'>";
-        // <!--top------------------------->
-        echo "<div class='box-top'>";
-        // <!--profile----->
-        echo "<div class='profile'>";
-        // <!--img---->
-        echo "<div class='profile-img'>";
-        echo "<img src='img/Kai.webp' />";
-        echo "</div>";
-        // <!--name-and-username-->
-        echo "<div class='name-user'>";
-        echo "<strong>{$review["firstName"]} {$review["lastName"]}</strong>";
-        echo "<span>@{$review["username"]}</span>";
-        echo "</div>";
-        echo "</div>";
-        // <!--reviews------>
-        echo "<div class='reviews'>";
-        echo "<i class='fa fa-star'></i>";
-        echo "<i class='fa fa-star'></i>";
-        echo "<i class='fa fa-star'></i>";
-        echo "<i class='fa fa-star'></i>";
-        echo "<i class='fa fa-star'></i>";
-        echo "</div>";
-        echo "</div>";
-        // <!--Comments---------------------------------------->
-        echo "<div class='client-comment'>";
-        echo "<p>{$review["reviewDesc"]}</p>";
-        echo "</div>";
-        echo "</div>";
-      }
-    ?>
-    
-  </div>
-</section>
-
-    
-
-     
-
-
-<!-- cards-container-->
-<section class="product">
-  <h2 class="product-category">Shirts | Blouses</h2>
-  <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
-  <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
-
-  <div class="product-container">
-    <div class = "product-card">
-      <div class = "product-image">
-        <span class = "discount-tag">50% off</span>
-        <img src ="img/Men/Shoes/62.png" class="product-thumb" alt="">;
-        <button class="card-btn">Add To Cart</button>
-      </div>
-      <div class = "product-info">
-        <h2 class="product-name">brand</h2>
-        <p class= "product-category-desc">a short line about the cloth</p>
-        <span class="price">$20</span><span class="actual-price">$40</span>
-      </div>
+  <!--reviews------------------->
+  <section id="reviews">
+    <!--heading--->
+    <div class="review-heading">
+      <span>Reviews</span>
+      <span id="review-link">Please review our <a href="review.php?<?php echo "productid={$_SESSION["viewedproduct"]["productId"]}"; ?>">product</a></span>
     </div>
-  </div>
-</section> 
+    <!--reviews-box-container------>
+    <div class="review-box-container">
 
-<!-- cards-container-->
-<section class="product">
-  <h2 class="product-category">Shoes</h2>
-  <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
-  <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
+      <?php    
+        forEach($_SESSION["viewedproduct"]["reviews"] as $review) {
+          // <!--BOX--------------->
+          echo "<div class='review-box'>";
+            // <!--top------------------------->
+            echo "<div class='box-top'>";
+              // <!--profile----->
+              echo "<div class='profile'>";
+                // <!--img---->
+                echo "<div class='profile-img'>";
+                echo "<img src='img/Kai.webp' />";
+                echo "</div>";
+                // <!--name-and-username-->
+                echo "<div class='name-user'>";
+                echo "<strong>{$review["firstName"]} {$review["lastName"]}</strong>";
+                echo "<span>@{$review["username"]}</span>";
+                echo "</div>";
+              echo "</div>";
+              // <!--reviews------>
+              echo "<div class='reviews'>";
+          
+              for ($star = 0, $full = $review['rating']; $star < 5; $star++, $full--) {
+                if ($full > 0) {
+                  echo "<i class='fa fa-star'></i>";
+                  continue;
+                }
+                echo "<i class='fa fa-star-o'></i>";
+              }
 
-  <div class="product-container">
-    <div class = "product-card">
-      <div class = "product-image">
-        <span class = "discount-tag">50% off</span>
-        <img src ="img/Men/Shoes/62.png" class="product-thumb" alt="">;
-        <button class="card-btn">Add To Cart</button>
-      </div>
-      <div class = "product-info">
-        <h2 class="product-name">brand</h2>
-        <p class= "product-category-desc">a short line about the cloth</p>
-        <span class="price">$20</span><span class="actual-price">$40</span>
-      </div>
+              echo "</div>";
+            echo "</div>";
+            // <!--Comments---------------------------------------->
+            echo "<div class='client-comment'>";
+            echo "<p>{$review["reviewDesc"]}</p>";
+            echo "</div>";
+          echo "</div>";
+        }
+      ?>
+      
     </div>
-  </div>
-</section> 
+  </section>
 
-<footer></footer>
+  <!-- cards-container-->
+  <section class="product">
+    <h2 class="product-category">Shirts | Blouses</h2>
+    <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
+    <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
+
+    <div class="product-container">
+
+      <?php
+        foreach($_SESSION["suggestions"]["shirts"] as $shirt) {
+          $discountedPrice = 0;
+          $normalPriceClass = "no-discount";
+
+          echo "<div class='product-card'>";
+            echo "<div class='product-image'>";
+              if ($shirt["discount"]) {
+                echo "<span class='discount-tag'>{$shirt["discount"]}% off</span>";
+                $discountedPrice = number_format( ((100 - $shirt["discount"]) / 100) * $shirt["unitPrice"], 2 );
+                $normalPriceClass = "actual-price";
+              }
+              echo "<a href='viewproduct.php?productid={$shirt["productId"]}'><img src='img/{$shirt["picture"]}' class='product-thumb' alt=''></a>";
+              echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>";
+                echo "<input type='text' hidden name='productId' value='{$shirt["productId"]}'>";
+                echo "<input type='text' hidden name='prodName' value='{$shirt["prodName"]}'>";
+                echo "<input type='text' hidden name='picture' value='{$shirt["picture"]}'>";
+                echo "<input type='text' hidden name='unitPrice' value='{$shirt["unitPrice"]}'>";
+                echo "<input type='text' hidden name='discount' value='{$shirt["discount"]}'>";
+                echo "<button class='card-btn'>Add To Cart</button>";
+              echo "</form>";  
+            echo "</div>";
+            echo "<div class='product-info'>";
+              echo "<h2 class='product-name'>{$shirt["prodName"]}</h2>";
+              echo "<p class='product-short-des'>{$shirt["prodDesc"]}</p>";
+              if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
+              echo "<span class='{$normalPriceClass}'>{$shirt["unitPrice"]}</span>";
+            echo "</div>";
+          echo "</div>";
+        }
+      ?>
+
+    </div>
+  </section> 
+
+  <!-- cards-container-->
+  <section class="product">
+    <h2 class="product-category">Shoes</h2>
+    <button class = "pre-btn"><img src = "img/arrow.png" alt=""></button>
+    <button class = "nxt-btn"><img src = "img/arrow.png" alt=""></button>
+
+    <div class="product-container">
+
+      <?php
+        foreach($_SESSION["suggestions"]["shoes"] as $shoes) {
+          $discountedPrice = 0;
+          $normalPriceClass = "no-discount";
+
+          echo "<div class='product-card'>";
+            echo "<div class='product-image'>";
+              if ($shoes["discount"]) {
+                echo "<span class='discount-tag'>{$shoes["discount"]}% off</span>";
+                $discountedPrice = number_format( ((100 - $shoes["discount"]) / 100) * $shoes["unitPrice"], 2 );
+                $normalPriceClass = "actual-price";
+              }            
+              echo "<a href='viewproduct.php?productid={$shoes["productId"]}'><img src='img/{$shoes["picture"]}' class='product-thumb' alt=''></a>";
+              echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>";
+                echo "<input type='text' hidden name='productId' value='{$shoes["productId"]}'>";
+                echo "<input type='text' hidden name='prodName' value='{$shoes["prodName"]}'>";
+                echo "<input type='text' hidden name='picture' value='{$shoes["picture"]}'>";
+                echo "<input type='text' hidden name='unitPrice' value='{$shoes["unitPrice"]}'>";
+                echo "<input type='text' hidden name='discount' value='{$shoes["discount"]}'>";
+                echo "<button class='card-btn'>Add To Cart</button>";
+              echo "</form>";             
+            echo "</div>";
+            echo "<div class='product-info'>";
+              echo "<h2 class='product-name'>{$shoes["prodName"]}</h2>";
+              echo "<p class='product-short-des'>{$shoes["prodDesc"]}</p>";
+              if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
+              echo "<span class='{$normalPriceClass}'>{$shoes["unitPrice"]}</span>";
+            echo "</div>";
+          echo "</div>";
+        }
+      ?>
+
+    </div>
+  </section> 
+
+  <footer></footer>
 
   <script src="js/nav.js"></script>
   <script src="js/footer.js"></script>

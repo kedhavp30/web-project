@@ -19,12 +19,11 @@
 	require_once "includes/db_connect.php";
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
-	// Registered users; retrieve cart items from db if not yet
+	// Registered users; retrieve cart items from db if not yet and cart session empty
 	if (!$_SESSION["cart"]) {
-
 		$cartQuery = "SELECT cart.productId, size, colour, quantity, cart.unitPrice, cart.discount, prodName, picture
 									FROM cart INNER JOIN product ON cart.productId = product.productId
-									WHERE username = {$conn->quote($username)};";
+									WHERE username = {$conn->quote($_SESSION["username"])};";
 
 		$cartQueryResult = $conn->query($cartQuery);
 
@@ -32,13 +31,21 @@
 
 			// Session variable cart contains productId as key and product info as value
 			forEach($cartQueryResult->fetchAll(PDO::FETCH_ASSOC) as $product) {
-				$_SESSION["cart"]["{$product["productId"]}"] = array("size"=>"{$product["size"]}",
-																															"colour"=>"{$product["colour"]}",
+
+				if (isset($_SESSION["cart"]["{$product["productId"]}"])) {
+					$_SESSION["cart"]["{$product["productId"]}"]["quantity"] += $product["quantity"];
+					$_SESSION["cart"]["{$product["productId"]}"]["size_colour_qty"]["{$product["size"]}_{$product["colour"]}"] = $product["quantity"];
+					continue;
+				}
+
+				$size_colour_qty = array("{$product["size"]}_{$product["colour"]}"=>"{$product["quantity"]}");
+				$_SESSION["cart"]["{$product["productId"]}"] = array( "size_colour_qty"=>$size_colour_qty,
 																															"quantity"=>"{$product["quantity"]}",
 																															"unitPrice"=>"{$product["unitPrice"]}",
 																															"discount"=>"{$product["discount"]}",
 																															"prodName"=>"{$product["prodName"]}",
 																															"picture"=>"{$product["picture"]}");
+
 			}
 		}
 	}
@@ -68,28 +75,33 @@
 			// 											->fetch(PDO::FETCH_ASSOC)['creditCardId'];
 		
 			$conn->exec("INSERT INTO orders (status, orderDate, creditCardNo, username )
-									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 1, {$conn->quote($username)} );");
+									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 1234567, {$conn->quote($username)} );");
 
 			$orderId = $conn->query("SELECT MAX(orderId) AS orderId 
 															 FROM orders 
 															 WHERE  username = {$conn->quote($username)}")
                       ->fetch(PDO::FETCH_ASSOC)['orderId'];
 
-			foreach($_SESSION["cart"] as $productId => $product) {
+			foreach ($_SESSION["cart"] as $productId => $product) {
 
-				$orderItemsQuery = "INSERT INTO orderitems (orderId, productId, size, colour, quantity, unitprice, discount)
-														VALUES ( {$orderId}, {$productId}, {$conn->quote($product["size"])},
-														 			 {$conn->quote($product["colour"])}, {$product["quantity"]}, {$product["unitPrice"]}, 
-														 			 {$product["discount"]} );";
+				foreach($product["size_colour_qty"] as $size_colour => $qty) {
+					list($size, $colour) = explode("_", $size_colour);
+					
+					$orderItemsQuery = "INSERT INTO orderitems (orderId, productId, size, colour, quantity, unitprice, discount)
+															VALUES ( {$orderId}, {$productId}, {$conn->quote($size)},
+														 			 		 {$conn->quote($colour)}, {$product["quantity"]}, {$product["unitPrice"]}, 
+														 			 		 {$product["discount"]} );";
 
-				$conn->exec($orderItemsQuery);
+					$conn->exec($orderItemsQuery);
 
-				$updateInventory = "UPDATE inventory
-														SET stockLevel  = stockLevel - {$product["quantity"]}
-														WHERE productId = {$productId}
-														AND  size = {$conn->quote($product["size"])}
-														AND colour = {$conn->quote($product["colour"])};";
-				$conn->exec($updateInventory);
+					$updateInventory = "UPDATE inventory
+															SET stockLevel  = stockLevel - {$qty}
+															WHERE productId = {$productId}
+															AND  size = {$conn->quote($size)}
+															AND colour = {$conn->quote($colour)};";
+					$conn->exec($updateInventory);
+				}
+
 		  }
 			// Checkout complete; Empty user cart in db
 			$conn->exec("DELETE FROM cart WHERE username = {$conn->quote($username)}");
@@ -138,9 +150,18 @@
 							echo "<div class='box'>";
 							echo "<img src='img/{$product["picture"]}'>";
 							echo "<div class='content'>";
-							echo "<h3>{$product["prodName"]}</h3>";
-							echo "<h4><span class='product-colour'>Colour: {$product["colour"]}</span><span class='product-size'>Size: {$product["size"]}</span>Price: Rs {$product["unitPrice"]}</h4>";
-							echo "<p class='unit'>Quantity: <input type='number' name='quantity' value='{$product["quantity"]}' max='100' min='1'></p>";
+							echo "<h3 style='display:flex;justify-content:space-between;'><span>{$product["prodName"]}</span><span>Price: Rs {$product["unitPrice"]}</span></h3>";
+
+							foreach($product["size_colour_qty"] as $size_colour => $qty) {
+								list($size, $colour) = explode("_", $size_colour);
+
+								echo "<h4>";
+								echo "<span class='product-colour'>Colour: {$colour}</span>";
+								echo "<span class='product-size'>Size: {$size}</span>";
+								echo "<span class='unit'>Quantity: <input type='number' name='quantity' value='{$qty}' max='100' min='1'></span>";
+								echo "</h4>";
+							}
+
 							echo "</div>";
 							echo "</div>";	
 						}
