@@ -185,7 +185,7 @@
     </div>
     <div class="details">
       <h2 class="product-name"><?php echo $_SESSION["viewedproduct"]["prodName"]; ?></h2>
-      <p class="category-short-des"><?php echo $_SESSION["{$_SESSION["viewedproductid"]}"]["categoryName"]; ?></p>
+      <p class="category-short-des"><?php echo $_SESSION["viewedproduct"]["categoryName"]; ?></p>
       <p class="divider"></p>
       <span class="product-rating">Rating: <?php echo $_SESSION["viewedproduct"]["totalReviews"] ? "{$_SESSION["viewedproduct"]["avgRating"]}/5 ({$_SESSION["viewedproduct"]["totalReviews"]} review/s)" : "No reviews yet"; ?></span> <br/><br/>
       <span class="product-price" <?php if (!$_SESSION["viewedproduct"]["discount"]) echo "hidden"; ?>>Rs <?php echo $_SESSION["viewedproduct"]["discountedPrice"]; ?></span>
