@@ -8,8 +8,8 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $searchbox = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $category = $_POST["category"];
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        $category = $_GET["category"];
         $query = "SELECT * FROM product
         INNER JOIN category ON category.categoryId = product.categoryId
         WHERE categoryName = {$conn->quote($category)}"; 
