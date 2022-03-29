@@ -91,7 +91,7 @@
                                                           "prodName"=>"{$_POST["prodName"]}",
                                                           "picture"=>"{$_POST["picture"]}");
 
-    } else { // product in cart
+    } else { // product in cart"
       $_SESSION["cart"]["{$_POST["productId"]}"]["quantity"]++;
 
       if (isset($_SESSION["cart"]["{$_POST["productId"]}"]["size_colour_qty"]["{$size}_{$colour}"])) {
@@ -100,8 +100,35 @@
         $_SESSION["cart"]["{$_POST["productId"]}"]["size_colour_qty"]["{$size}_{$colour}"] = 1;        
       }
     }
+
+    // Updating cart table if user is registered
+    if (isset($_SESSION["username"])) {
+      $cartQueryResult = $conn->query("SELECT * FROM cart 
+                                       WHERE username = {$conn->quote($_SESSION["username"])}
+                                       AND productId = {$_POST["productId"]}
+                                       AND size = {$conn->quote($size)}
+                                       AND colour = {$conn->quote($colour)}");
+                                   
+      // Product in cart table
+      if ($cartQueryResult->rowCount()) {
+        $conn->exec("UPDATE cart
+                     SET quantity = quantity + 1
+                     WHERE username = {$conn->quote($_SESSION["username"])}
+                     AND productId = {$_POST["productId"]}
+                     AND size = {$conn->quote($size)}
+                     AND colour = {$conn->quote($colour)}");
+      } else {
+        $conn->exec("INSERT INTO cart(productId, size, colour, quantity, unitPrice, discount, username)
+                     VALUES({$_POST["productId"]}, {$conn->quote($size)}, {$conn->quote($colour)}, 1, {$_POST["unitPrice"]}, 
+                            {$_POST["discount"]}, {$conn->quote($_SESSION["username"])})");
+      }
+    }
   }
 
+
+  /* Cannot add to cart */
+  /* NOTE: shirts, shoes not in inventory yet */
+  /* NOTE: blouses not in inventory nor in product yet */
 
   // Suggestions
   $shirtsQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
@@ -113,8 +140,8 @@
   //                  WHERE categoryName = 'Blouse';";    
                     
   $shoesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
-                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
-                  WHERE categoryName = 'Shoes';";
+                 FROM product INNER JOIN category ON product.categoryId = category.categoryId
+                 WHERE categoryName = 'Shoes';";
                     
                     
   if (!isset($_SESSION["suggestions"]["shirts"])) {
@@ -128,11 +155,6 @@
   if (!isset($_SESSION["suggestions"]["shoes"])) {
     $_SESSION["suggestions"]["shoes"] = $conn->query($shoesQuery)->fetchAll(PDO::FETCH_ASSOC);
   }    
-
-
-
-
-
 
 ?>
 
