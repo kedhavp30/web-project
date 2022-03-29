@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (empty($_POST["creditcardpin"])) {
       $creditcardnumErr = "Credit card pin is required.";
-		} else {
+	} else {
 			$creditcardpin = $_POST["creditcardpin"];
       if (!preg_match("/^[0-9]{4}$/",$creditcardpin)) {
          $creditcardpinErr = "Only 4 numbers allowed!";
