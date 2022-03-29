@@ -14,6 +14,8 @@
 	$username = $creditcardnum = $creditcardpin = "";
 	$creditcardnumErr = $creditcardpinErr = "";
 
+
+
 	$username = $_SESSION["username"];
 
 	require_once "includes/db_connect.php";
@@ -54,17 +56,23 @@
   $isCustomer = $conn->query("SELECT * FROM customer WHERE username = {$conn->quote($username)}");
 
   // Form submitted
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {   
+if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     if (empty($_POST["creditcardnum"])) {
       $creditcardnumErr = "Credit card num is required.";
     } else {
       $creditcardnum = $_POST["creditcardnum"];
+      if (!preg_match("/^[0-9]{12}$/",$creditcardnum)) {
+        $creditcardnumErr = "wrong credit card num inserted";
+     }
     }
     if (empty($_POST["creditcardpin"])) {
       $creditcardnumErr = "Credit card pin is required.";
 		} else {
 			$creditcardpin = $_POST["creditcardpin"];
-		}
+      if (!preg_match("/^[0-9]{4}$/",$creditcardpin)) {
+         $creditcardpinErr = "Only 4 numbers allowed!";
+       }
+}
 
 		// Form valid: Insert Into Order and Order Details, Update inventory
 		if($creditcardnumErr  == "" && $creditcardpinErr == "") {
