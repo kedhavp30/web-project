@@ -1,25 +1,27 @@
+<?php
 
-  <?php
 
-include ("config.php");
+require_once "includes/db_connect.php";
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
 
 $searchbox = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        $category = $_GET["category"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $category = $_POST["category"];
         $query = "SELECT * FROM product
         INNER JOIN category ON category.categoryId = product.categoryId
-        WHERE categoryName = '$category'"; 
-        $r = mysqli_query($conn , $query);
+        WHERE categoryName = {$conn->quote($category)}"; 
+        $result = $conn->query($squery) ;
 } else {
   if (isset($_POST['filter'])) {
     $squery = "SELECT * FROM product WHERE unitPrice>={$_POST['minrange']} AND unitPrice<={$_POST['maxrange']}";
-        $r = mysqli_query($conn , $squery);
+    $result = $conn->query($squery);
   }
   else if (isset($_POST['searchbox'])){
     $sqlquery = "SELECT * FROM product WHERE prodName = '{$_POST['searchbox']}' ";
-        $r = mysqli_query($conn , $sqlquery);
+    $result = $conn->query($sqlquery);
  }
 }
 
@@ -121,7 +123,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <div class="product-container">
                 <?php
 
-                while ($row = mysqli_fetch_assoc($r)) {
+                
+
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
                 //Database Values Fetched stored in variables
                  $unitPrice = $row['unitPrice'];
