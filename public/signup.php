@@ -42,8 +42,9 @@
             $result = $conn->exec($insert);
 
             if ($result){
-                echo "Account has been successfully created.";
                 $_SESSION["username"] = $username;
+                $referer = "signup";
+                include "includes/setCart.php";
                 header("Location: {$_SESSION["redirect"]}.php?referer=signup");
                 die();
             } else{

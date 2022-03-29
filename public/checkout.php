@@ -18,57 +18,6 @@
 
 	require_once "includes/db_connect.php";
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-	// Registered users; retrieve cart items from db if not yet and cart session empty
-	if (!$_SESSION["cart"] && $_SESSION["redirect"] != "signup") {
-		$cartQuery = "SELECT cart.productId, size, colour, quantity, cart.unitPrice, cart.discount, prodName, picture
-									FROM cart INNER JOIN product ON cart.productId = product.productId
-									WHERE username = {$conn->quote($_SESSION["username"])};";
-
-		$cartQueryResult = $conn->query($cartQuery);
-
-		if ($cartQueryResult->rowCount()) {
-
-			// Session variable cart contains productId as key and product info as value
-			forEach($cartQueryResult->fetchAll(PDO::FETCH_ASSOC) as $product) {
-
-				if (isset($_SESSION["cart"]["{$product["productId"]}"])) {
-					$_SESSION["cart"]["{$product["productId"]}"]["quantity"] += $product["quantity"];
-					$_SESSION["cart"]["{$product["productId"]}"]["size_colour_qty"]["{$product["size"]}_{$product["colour"]}"] = $product["quantity"];
-					continue;
-				}
-
-				$size_colour_qty = array("{$product["size"]}_{$product["colour"]}"=>"{$product["quantity"]}");
-				$_SESSION["cart"]["{$product["productId"]}"] = array( "size_colour_qty"=>$size_colour_qty,
-																															"quantity"=>"{$product["quantity"]}",
-																															"unitPrice"=>"{$product["unitPrice"]}",
-																															"discount"=>"{$product["discount"]}",
-																															"prodName"=>"{$product["prodName"]}",
-																															"picture"=>"{$product["picture"]}");
-
-			}
-		}
-
-	} else if ($_SESSION["redirect"] == "signin" || $_SESSION["redirect"] == "signup") { // Cart not empty; replace cart table with session cart
-
-		// Empty cart table for username
-		$conn->exec("DELETE FROM cart WHERE username = {$username}");
-
-		// Insert session cart into cart table for username
-		foreach ($_SESSION["cart"] as $productId => $product) {
-
-			foreach($product["size_colour_qty"] as $size_colour => $qty) {
-				list($size, $colour) = explode("_", $size_colour);
-				
-				$cartQuery = "INSERT INTO cart (productId, size, colour, quantity, unitprice, discount, username)
-											VALUES ( {$productId}, {$conn->quote($size)},
-															 {$conn->quote($colour)}, {$product["quantity"]}, {$product["unitPrice"]}, 
-															 {$product["discount"]} );";
-
-				$conn->exec($cartQuery);
-			}
-		}		
-	}
 
 	// Checking if user is already a customer
   $isCustomer = $conn->query("SELECT * FROM customer WHERE username = {$conn->quote($username)}");
@@ -79,7 +28,7 @@
       $creditcardnumErr = "Credit card num is required.";
     } else {
       $creditcardnum = $_POST["creditcardnum"];
-      if (!preg_match("/^[0-9]{12}$/",$creditcardnum)) {
+      if (!preg_match("/^[0-9]{7}$/",$creditcardnum)) {
         $creditcardnumErr = "Wrong credit card number inserted";
      }
     }
@@ -115,7 +64,7 @@
 					
 					$orderItemsQuery = "INSERT INTO orderitems (orderId, productId, size, colour, quantity, unitprice, discount)
 															VALUES ( {$orderId}, {$productId}, {$conn->quote($size)},
-														 			 		 {$conn->quote($colour)}, {$product["quantity"]}, {$product["unitPrice"]}, 
+														 			 		 {$conn->quote($colour)}, {$qty}, {$product["unitPrice"]}, 
 														 			 		 {$product["discount"]} );";
 
 					$conn->exec($orderItemsQuery);
@@ -133,7 +82,7 @@
 			$conn->exec("DELETE FROM cart WHERE username = {$conn->quote($username)}");
 			unset($_SESSION["cart"]);
 
-			header("Location: index.html");
+			header("Location: index.php?referer=checkout");
 			die();
 		}	
 	}

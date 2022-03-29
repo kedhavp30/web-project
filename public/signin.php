@@ -8,7 +8,7 @@
     if (isset($_SESSION["username"])) {
         header("Location: {$_SESSION["redirect"]}.php");
         die();
-    }    
+    }
 
     $usernameErr = $passwordErr  = "";
     $username = $userpassword  = "";
@@ -42,7 +42,8 @@
                 if(password_verify($userpassword, $hashedpassword))
                 {
                     $_SESSION['username'] = $username;
-                    echo $_SESSION['username'];
+                    $referer = "signup";
+                    include "includes/setCart.php";
                     header("Location: {$_SESSION["redirect"]}.php?referer=signin");
                     die();
                 } else {

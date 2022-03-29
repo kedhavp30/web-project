@@ -1,8 +1,12 @@
 <?php
   session_start();
 
+  if ($_SERVER["REQUEST_METHOD"] == "GET") {
+      $_SESSION["redirect"] = isset($_GET["referer"]) ? $_GET["referer"] : "index";
+  }  
+
   if (!isset($_SESSION["username"])) {
-    header("Location: signup.php");
+    header("Location: signin.php?referer=editprofile");
     die();
   }
 
