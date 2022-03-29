@@ -1,11 +1,22 @@
 <?php 
     session_start();
 
-    if (isset($_SESSION["username"])) {
-        echo "Already logged in. Redirecting to home page.";
-        header("Location: index.html");
-        die();
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            
+        switch($_GET["referer"]) {
+            case "checkout":
+                $_SESSION["redirect"] = "checkout";
+                break;
+            default:
+                $_SESSION["redirect"] = "index";                
+                break;
+        }       
     }
+
+    if (isset($_SESSION["username"])) {
+        header("Location: {$_SESSION["redirect"]}}.php");
+        die();
+    }    
 
     $usernameErr = $passwordErr = $emailErr = "";
     $username = $userpassword = $useremail = "";
@@ -41,7 +52,7 @@
             if ($result){
                 echo "Account has been successfully created.";
                 $_SESSION["username"] = $username;
-                header("Location: index.html");
+                header("Location: {$_SESSION["redirect"]}.php?referer=signup");
                 die();
             } else{
                 echo "Account cannot be created.";
@@ -85,7 +96,7 @@
                 <input type="submit" class ="submit-btn" value="Create Account"></input>
             </form>
             
-            <p>Already have an account? Log in<a href="signin.php" class="link"> here</a></p>
+            <p>Already have an account? Log in<a href="signin.php?referer=<?php echo $_SESSION["redirect"] ?>" class="link"> here</a></p>
         </div>
 
     </body>

@@ -1,11 +1,22 @@
 <?php 
     session_start();
 
-    if (isset($_SESSION["username"])) {
-        echo " You have already logged in.";
-        header("Location: index.html");
-        die();
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            
+        switch($_GET["referer"]) {
+            case "checkout":
+                $_SESSION["redirect"] = "checkout";
+                break;
+            default:
+                $_SESSION["redirect"] = "index";                
+                break;
+        }       
     }
+
+    if (isset($_SESSION["username"])) {
+        header("Location: {$_SESSION["redirect"]}.php");
+        die();
+    }    
 
     $usernameErr = $passwordErr  = "";
     $username = $userpassword  = "";
@@ -40,7 +51,7 @@
                 {
                     $_SESSION['username'] = $username;
                     echo $_SESSION['username'];
-                    header("Location: index.html?referer=signin");
+                    header("Location: {$_SESSION["redirect"]}.php?referer=signin");
                     die();
                 } else {
                     echo "Incorrect password";
@@ -80,6 +91,8 @@
             <input type="password" autocomplete ="off" id ="password" name="password" placeholder ="password">
             <input type="submit" class ="submit-btn" value="Sign in"></input>
         </form>
+
+            <p>Don't have an account? Register<a href="signup.php?referer=<?php echo $_SESSION["redirect"] ?>" class="link"> here</a></p>
      </div>
 
 </body>

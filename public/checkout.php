@@ -14,15 +14,13 @@
 	$username = $creditcardnum = $creditcardpin = "";
 	$creditcardnumErr = $creditcardpinErr = "";
 
-
-
 	$username = $_SESSION["username"];
 
 	require_once "includes/db_connect.php";
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	// Registered users; retrieve cart items from db if not yet and cart session empty
-	if (!$_SESSION["cart"]) {
+	if (!$_SESSION["cart"] && $_SESSION["redirect"] != "signup") {
 		$cartQuery = "SELECT cart.productId, size, colour, quantity, cart.unitPrice, cart.discount, prodName, picture
 									FROM cart INNER JOIN product ON cart.productId = product.productId
 									WHERE username = {$conn->quote($_SESSION["username"])};";
@@ -50,6 +48,26 @@
 
 			}
 		}
+
+	} else if ($_SESSION["redirect"] == "signin" || $_SESSION["redirect"] == "signup") { // Cart not empty; replace cart table with session cart
+
+		// Empty cart table for username
+		$conn->exec("DELETE FROM cart WHERE username = {$username}");
+
+		// Insert session cart into cart table for username
+		foreach ($_SESSION["cart"] as $productId => $product) {
+
+			foreach($product["size_colour_qty"] as $size_colour => $qty) {
+				list($size, $colour) = explode("_", $size_colour);
+				
+				$cartQuery = "INSERT INTO cart (productId, size, colour, quantity, unitprice, discount, username)
+											VALUES ( {$productId}, {$conn->quote($size)},
+															 {$conn->quote($colour)}, {$product["quantity"]}, {$product["unitPrice"]}, 
+															 {$product["discount"]} );";
+
+				$conn->exec($cartQuery);
+			}
+		}		
 	}
 
 	// Checking if user is already a customer

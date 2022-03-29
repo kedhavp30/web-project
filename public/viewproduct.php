@@ -91,7 +91,7 @@
                                                           "prodName"=>"{$_POST["prodName"]}",
                                                           "picture"=>"{$_POST["picture"]}");
 
-    } else { // product in cart"
+    } else { // product in cart
       $_SESSION["cart"]["{$_POST["productId"]}"]["quantity"]++;
 
       if (isset($_SESSION["cart"]["{$_POST["productId"]}"]["size_colour_qty"]["{$size}_{$colour}"])) {
