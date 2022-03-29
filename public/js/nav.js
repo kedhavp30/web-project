@@ -17,10 +17,10 @@ const createNav = () => {
       </div>
       <ul class="mylinks-container">
         <li class="mylink-item"><a href="index.html" class="mylink">Home</a></li>
-        <li class="mylink-item"><a href="searchproduct.html?gender=female" class="mylink">Women</a></li>
-        <li class="mylink-item"><a href="searchproduct.html?gender=male" class="mylink">Men</a></li>
-        <li class="mylink-item"><a href="searchproduct.html" class="mylink">Category</a></li>
-        <li class="mylink-item"><a href="aboutus.html" class="mylink">About Us</a></li>
+        <li class="mylink-item"><a href="searchproduct.php?gender=female" class="mylink">Women</a></li>
+        <li class="mylink-item"><a href="searchproduct.php?gender=male" class="mylink">Men</a></li>
+        <li class="mylink-item"><a href="searchproduct.php" class="mylink">Category</a></li>
+        <li class="mylink-item"><a href="aboutus.php" class="mylink">About Us</a></li>
       </ul>
     `;
   }
