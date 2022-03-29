@@ -77,7 +77,7 @@
     <img src = "img/loader.gif" class="loader" alt="">
 
     <div class="container">
-        <a href="index.html"><img src="img/logo.jpeg" class="logo" alt=""></a>
+        <a href="index.php"><img src="img/logo.jpeg" class="logo" alt=""></a>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
             <input type="text" autocomplete ="off" id ="username" name="username" placeholder ="username">
             <input type="password" autocomplete ="off" id ="password" name="password" placeholder ="password">
