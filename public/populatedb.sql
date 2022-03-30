@@ -193,7 +193,7 @@ VALUES  (1, "S", "Blue", 10, 100),
         (16, "M", "Blue", 10, 100),
         (16, "M", "Red", 10, 100),
         (16, "L", "Blue", 10, 100),
-        (16, "L", "Red", 10, 100);
+        (16, "L", "Red", 10, 100),
         (17, "S", "Blue", 10, 100),
         (17, "S", "Red", 10, 100),
         (17, "M", "Blue", 10, 100),
@@ -277,7 +277,7 @@ VALUES  (1, "S", "Blue", 10, 100),
         (30, "M", "Blue", 10, 100),
         (30, "M", "Red", 10, 100),
         (30, "L", "Blue", 10, 100),
-        (30, "L", "Red", 10, 100);
+        (30, "L", "Red", 10, 100),
         (31, "S", "Blue", 10, 100),
         (31, "S", "Red", 10, 100),
         (31, "M", "Blue", 10, 100),
@@ -583,16 +583,16 @@ VALUES  (1, "S", "Blue", 10, 100),
 /* PaymentInfo table */
 /* One used for all orders */
 INSERT INTO paymentinfo(creditCardpin, creditCardNo)
-VALUES  (1234, 123412341234);
+VALUES  (1234, "123412341234");
 
 /* Orders table */
 /* For one user */
 INSERT INTO orders(status, orderDate, creditCardNo, username)
-VALUES  ("Pending", "2022-03-25", 123412341234, "hdsmathew"),
-        ("Delivered", "2022-03-23", 123412341234, "hdsmathew"),
-        ("Pending", "2022-03-25", 123412341234, "hdsmathew"),
-        ("Delivered", "2022-03-22", 123412341234, "hdsmathew"),
-        ("Pending", "2022-03-25", 123412341234, "hdsmathew");
+VALUES  ("Pending", "2022-03-25", "123412341234", "hdsmathew"),
+        ("Delivered", "2022-03-23", "123412341234", "hdsmathew"),
+        ("Pending", "2022-03-25", "123412341234", "hdsmathew"),
+        ("Delivered", "2022-03-22", "123412341234", "hdsmathew"),
+        ("Pending", "2022-03-25", "123412341234", "hdsmathew");
 
 /* OrderItems table */
 INSERT INTO orderitems(orderId, productId, size, colour, quantity, unitPrice, discount, reviewed)
