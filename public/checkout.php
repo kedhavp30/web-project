@@ -28,7 +28,7 @@
       $creditcardnumErr = "Credit card num is required.";
     } else {
       $creditcardnum = $_POST["creditcardnum"];
-      if (!preg_match("/^[0-9]{7}$/",$creditcardnum)) {
+      if (!preg_match("/^[0-9]{12}$/",$creditcardnum)) {
         $creditcardnumErr = "Wrong credit card number inserted";
      }
     }
@@ -50,7 +50,7 @@
 			// 											->fetch(PDO::FETCH_ASSOC)['creditCardId'];
 		
 			$conn->exec("INSERT INTO orders (status, orderDate, creditCardNo, username )
-									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 1234567, {$conn->quote($username)} );");
+									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 123412341234, {$conn->quote($username)} );");
 
 			$orderId = $conn->query("SELECT MAX(orderId) AS orderId 
 															 FROM orders 

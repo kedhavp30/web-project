@@ -19,7 +19,7 @@ const createFooter = () => {
           <ul class="category">
             <li class = "category-title"> Women </li>
             <li><a href="#" class="footer-link">Blouses</a></li>
-            <li><a href="#" class="footer-link">Hoodies</a></li>
+            <li><a href="#" class="footer-link">Sweatshirts</a></li>
             <li><a href="#" class="footer-link">Jeans</a></li>
             <li><a href="#" class="footer-link">Trousers</a></li>
             <li><a href="#" class="footer-link">Shoes</a></li>
