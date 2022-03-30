@@ -174,7 +174,7 @@
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Shirts/48.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
