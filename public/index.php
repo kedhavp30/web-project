@@ -31,98 +31,98 @@
        <div class="product-container">
            <div class = "product-card">
                <div class = "product-image">
-                   <span class = "discount-tag">30% off</span>
-                   <img src ="img/Women/Hoodies_SweatShirts/10.png"  class="product-thumb" alt="">;
+                   <span class = "discount-tag">0%</span>
+                   <img src ="img/Women/Sweatshirts/10.png"  class="product-thumb" alt="">;
                    <button class="card-btn">Add To Cart</button>
                </div>
                <div class = "product-info">
-                   <h2 class="product-brand">Sweatshirts</h2>
-                   <p class= "product-short-desc">Addidas Cropped Sweatshirt with 3 strips</p>
-                   <span class="price">Rs 270</span><span class="actual-price">Rs 300</span>
+                   <h2 class="product-brand">Women-Sweatshirts</h2>
+                   <p class= "product-short-desc"> Cozy 100% cotton</p>
+                   <span class="price">Rs 600</span>
                </div>
            </div>
            <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
-                <img src ="img/Women/Joggers/33.png"product-thumb" alt="">;
+                <span class = "discount-tag">0%</span>
+                <img src ="img/Women/Joggers/33.png"product-thumb alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">Jogger</h2>
-                <p class= "product-short-desc">Addidas Essential Jogger</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Women-Joggers</h2>
+                <p class= "product-short-desc">Perfect fit for exercising</p>
+                <span class="price">Rs 325</span>
             </div>
         </div>
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0%</span>
                 <img src ="img/Men/Sportswear/68.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Men-Sportswear</h2>
+                <p class= "product-short-desc"> Perfect for any activity</p>
+                <span class="price">Rs 875</span>
             </div>
         </div>
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0% </span>
                 <img src ="img/Men/Trousers/58.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Men-Trousers</h2>
+                <p class= "product-short-desc">Sleek and fresh look</p>
+                <span class="price">Rs 500</span>
             </div>
         </div>
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0%</span>
                 <img src ="img/Men/Shoes/63.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Men-Shoes</h2>
+                <p class= "product-short-desc">Shoes for maximum comfort</p>
+                <span class="price">Rs 1250</span>
             </div>
         </div>
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
-                <img src ="img/Women/Hoodies_SweatShirts/8.png" class="product-thumb" alt="">;
+                <span class = "discount-tag">0%</span>
+                <img src ="img/Women/Sweatshirts/8.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">Hoodies</h2>
-                <p class= "product-short-desc">Relaxed Washed Grey Hoodie</p>
-                <span class="price">Rs 600</span><span class="actual-price">Rs 1200</span>
+                <h2 class="product-brand">Women-Sweatshirts</h2>
+                <p class= "product-short-desc"> Cozy 100% cotton</p>
+                <span class="price">Rs 600</span>
             </div>
         </div>
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0%</span>
                 <img src ="img/Men/Sportswear/70.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Men-Sportswear</h2>
+                <p class= "product-short-desc">Perfect for any activity.</p>
+                <span class="price">Rs 875</span>
             </div>
         </div>
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0%</span>
                 <img src ="img/Women/Shoes/23.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Women-Shoes</h2>
+                <p class= "product-short-desc">Shoes for maximum comfort</p>
+                <span class="price">Rs 1325</span>
             </div>
         </div>
        </div>
@@ -150,26 +150,26 @@
     <div class="product-container">
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0%</span>
                 <img src ="img/Men/Shirts/46.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Men-Shirts</h2>
+                <p class= "product-short-desc">Shirts with a modern look</p>
+                <span class="price">Rs 250</span>
             </div>
         </div>
         <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Shirts/47.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Shirts</h2>
+             <p class= "product-short-desc">Shirts with a modern look</p>
+             <span class="price">Rs 250</span>
          </div>
      </div>
      <div class = "product-card">
@@ -179,69 +179,69 @@
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Shirts</h2>
+             <p class= "product-short-desc">Shirts with a modern look</p>
+             <span class="price">Rs 250</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Shirts/49.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Shirts</h2>
+             <p class= "product-short-desc">Shirts with a modern look</p>
+             <span class="price">Rs 250</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Shirts/50.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Shirts</h2>
+             <p class= "product-short-desc">Shirts with a modern look</p>
+             <span class="price">Rs 250</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
-             <img src ="img/Women/Shirts_Blouse/3.png" class="product-thumb" alt="">;
+             <span class = "discount-tag">0%</span>
+             <img src ="img/Women/Blouses/3.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Blouses</h2>
+             <p class= "product-short-desc">Casual Blouses</p>
+             <span class="price">Rs 125</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
-             <img src ="img/Women/Shirts_Blouse/2.png" class="product-thumb" alt="">;
+             <span class = "discount-tag">0%</span>
+             <img src ="img/Women/Blouses/2.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Blouses</h2>
+             <p class= "product-short-desc">Casual blouses</p>
+             <span class="price">Rs 125</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
-             <img src ="img/Women/Shirts_Blouse/4.png" class="product-thumb" alt="">;
+             <span class = "discount-tag">0%</span>
+             <img src ="img/Women/Blouses/4.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Blouses</h2>
+             <p class= "product-short-desc">Casual Blouses</p>
+             <span class="price">Rs 125</span>
          </div>
      </div>
     </div>
@@ -256,98 +256,98 @@
     <div class="product-container">
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0%</span>
                 <img src ="img/Women/Jeans/11.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Women-Jeans</h2>
+                <p class= "product-short-desc">Casual trendy Jeans</p>
+                <span class="price">Rs 250</span>
             </div>
         </div>
         <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag"> 0% </span>
              <img src ="img/Women/Jeans/12.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Jeans</h2>
+             <p class= "product-short-desc">Casual trendy Jeans</p>
+             <span class="price">Rs 250</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Jeans/13.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Jeans</h2>
+             <p class= "product-short-desc">Casual trendy Jeans</p>
+             <span class="price">Rs 250</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Jeans/14.png"class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Jeans</h2>
+             <p class= "product-short-desc">Casual trendy Jeans</p>
+             <span class="price">Rs 250</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Jeans/51.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Jeans</h2>
+             <p class= "product-short-desc">Casual trendy Jeans</p>
+             <span class="price">Rs 200</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Jeans/52.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Jeans</h2>
+             <p class= "product-short-desc">Casual trendy Jeans</p>
+             <span class="price">Rs 200</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Jeans/53.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Jeans</h2>
+             <p class= "product-short-desc">Casual trendy Jeans</p>
+             <span class="price">Rs 200</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Men/Jeans/54.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Men-Jeans</h2>
+             <p class= "product-short-desc">Casual trendy Jeans</p>
+             <span class="price">Rs 200</span>
          </div>
      </div>
     </div>
@@ -362,98 +362,98 @@
     <div class="product-container">
         <div class = "product-card">
             <div class = "product-image">
-                <span class = "discount-tag">50% off</span>
+                <span class = "discount-tag">0%</span>
                 <img src ="img/Women/Dress/76.png" class="product-thumb" alt="">;
                 <button class="card-btn">Add To Cart</button>
             </div>
             <div class = "product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class= "product-short-desc">a short line about the cloth</p>
-                <span class="price">$20</span><span class="actual-price">$40</span>
+                <h2 class="product-brand">Women-Dresses</h2>
+                <p class= "product-short-desc">Silky dresses</p>
+                <span class="price">Rs 700</span>
             </div>
         </div>
         <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Dress/77.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Skirts</h2>
+             <p class= "product-short-desc">Midi Skirts</p>
+             <span class="price">Rs 700</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Dress/78.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Skirts</h2>
+             <p class= "product-short-desc">Mini Skirts</p>
+             <span class="price">Rs 700</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Dress/79.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Skirts</h2>
+             <p class= "product-short-desc">Mini Skirts</p>
+             <span class="price">Rs 700</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Dress/80.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Dresses</h2>
+             <p class= "product-short-desc">Silky Dresses</p>
+             <span class="price">Rs 700</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Dress/81.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Dresses</h2>
+             <p class= "product-short-desc">Silky Dresses</p>
+             <span class="price">Rs 700</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Dress/82.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Dresses</h2>
+             <p class= "product-short-desc">Silky Dresses</p>
+             <span class="price">Rs 700</span>
          </div>
      </div>
      <div class = "product-card">
          <div class = "product-image">
-             <span class = "discount-tag">50% off</span>
+             <span class = "discount-tag">0%</span>
              <img src ="img/Women/Dress/83.png" class="product-thumb" alt="">;
              <button class="card-btn">Add To Cart</button>
          </div>
          <div class = "product-info">
-             <h2 class="product-brand">brand</h2>
-             <p class= "product-short-desc">a short line about the cloth</p>
-             <span class="price">$20</span><span class="actual-price">$40</span>
+             <h2 class="product-brand">Women-Dresses</h2>
+             <p class= "product-short-desc">Silky dresses</p>
+             <span class="price">Rs 700</span>
          </div>
      </div>
     </div>
