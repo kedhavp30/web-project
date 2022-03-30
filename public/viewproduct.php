@@ -317,12 +317,12 @@
 
           echo "<div class='product-card'>";
             echo "<div class='product-image'>";
-              if ($shirt["discount"]) {
+              if ($blouse["discount"]) {
                 echo "<span class='discount-tag'>{$blouse["discount"]}% off</span>";
-                $discountedPrice = number_format( ((100 - $blouse["discount"]) / 100) * $shirt["unitPrice"], 2 );
+                $discountedPrice = number_format( ((100 - $blouse["discount"]) / 100) * $blouse["unitPrice"], 2 );
                 $normalPriceClass = "actual-price";
               }
-              echo "<a href='viewproduct.php?productid={$blouse["productId"]}'><img src='img/{$shirt["picture"]}' class='product-thumb' alt=''></a>";
+              echo "<a href='viewproduct.php?productid={$blouse["productId"]}'><img src='img/{$blouse["picture"]}' class='product-thumb' alt=''></a>";
               echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>";
                 echo "<input type='text' hidden name='productId' value='{$blouse["productId"]}'>";
                 echo "<input type='text' hidden name='prodName' value='{$blouse["prodName"]}'>";
