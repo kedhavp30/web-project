@@ -135,9 +135,9 @@
                   FROM product INNER JOIN category ON product.categoryId = category.categoryId
                   WHERE categoryName = 'Shirt';";
 
-  // $blousesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
-  //                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
-  //                  WHERE categoryName = 'Blouse';";    
+  $blousesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
+                   FROM product INNER JOIN category ON product.categoryId = category.categoryId
+                   WHERE categoryName = 'Blouse';";    
                     
   $shoesQuery = "SELECT productId, prodName, prodDesc, unitPrice, discount, picture
                  FROM product INNER JOIN category ON product.categoryId = category.categoryId
@@ -148,9 +148,9 @@
     $_SESSION["suggestions"]["shirts"] = $conn->query($shirtsQuery)->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  // if (!isset($_SESSION["suggestions"]["blouses"])) {
-  //   $_SESSION["suggestions"]["blouses"] = $conn->query($blousesQuery)->fetchAll(PDO::FETCH_ASSOC);
-  // }
+  if (!isset($_SESSION["suggestions"]["blouses"])) {
+    $_SESSION["suggestions"]["blouses"] = $conn->query($blousesQuery)->fetchAll(PDO::FETCH_ASSOC);
+  }
 
   if (!isset($_SESSION["suggestions"]["shoes"])) {
     $_SESSION["suggestions"]["shoes"] = $conn->query($shoesQuery)->fetchAll(PDO::FETCH_ASSOC);
@@ -307,6 +307,36 @@
               echo "<p class='product-short-des'>{$shirt["prodDesc"]}</p>";
               if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
               echo "<span class='{$normalPriceClass}'>{$shirt["unitPrice"]}</span>";
+            echo "</div>";
+          echo "</div>";
+        }
+
+        foreach($_SESSION["suggestions"]["blouses"] as $blouse) {
+          $discountedPrice = 0;
+          $normalPriceClass = "no-discount";
+
+          echo "<div class='product-card'>";
+            echo "<div class='product-image'>";
+              if ($shirt["discount"]) {
+                echo "<span class='discount-tag'>{$blouse["discount"]}% off</span>";
+                $discountedPrice = number_format( ((100 - $blouse["discount"]) / 100) * $shirt["unitPrice"], 2 );
+                $normalPriceClass = "actual-price";
+              }
+              echo "<a href='viewproduct.php?productid={$blouse["productId"]}'><img src='img/{$shirt["picture"]}' class='product-thumb' alt=''></a>";
+              echo "<form action='{$_SERVER["PHP_SELF"]}' method='POST'>";
+                echo "<input type='text' hidden name='productId' value='{$blouse["productId"]}'>";
+                echo "<input type='text' hidden name='prodName' value='{$blouse["prodName"]}'>";
+                echo "<input type='text' hidden name='picture' value='{$blouse["picture"]}'>";
+                echo "<input type='text' hidden name='unitPrice' value='{$blouse["unitPrice"]}'>";
+                echo "<input type='text' hidden name='discount' value='{$blouse["discount"]}'>";
+                echo "<button class='card-btn'>Add To Cart</button>";
+              echo "</form>";  
+            echo "</div>";
+            echo "<div class='product-info'>";
+              echo "<h2 class='product-name'>{$blouse["prodName"]}</h2>";
+              echo "<p class='product-short-des'>{$blouse["prodDesc"]}</p>";
+              if ($discountedPrice) echo "<span class='price'>Rs {$discountedPrice}</span>";
+              echo "<span class='{$normalPriceClass}'>{$blouse["unitPrice"]}</span>";
             echo "</div>";
           echo "</div>";
         }
