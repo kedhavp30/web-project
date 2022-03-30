@@ -43,14 +43,9 @@
 
 		// Form valid: Insert Into Order and Order Details, Update inventory
 		if($creditcardnumErr  == "" && $creditcardpinErr == "") {
-
-			// $creditCardId = $conn->query("SELECT creditCardId 
-			// 													 		FROM paymentinfo 
-			// 													 		WHERE  creditCardNo =  $creditcardnum ")
-			// 											->fetch(PDO::FETCH_ASSOC)['creditCardId'];
 		
-			$conn->exec("INSERT INTO orders (status, orderDate, creditCardNo, username )
-									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 123412341234, {$conn->quote($username)} );");
+			$conn->exec("INSERT INTO orders (status, orderDate, creditCardNo, customerId )
+									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 123412341234, 1 );");
 
 			$orderId = $conn->query("SELECT MAX(orderId) AS orderId 
 															 FROM orders 

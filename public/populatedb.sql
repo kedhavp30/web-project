@@ -587,12 +587,12 @@ VALUES  (1234, "123412341234");
 
 /* Orders table */
 /* For one user */
-INSERT INTO orders(status, orderDate, creditCardNo, username)
-VALUES  ("Pending", "2022-03-25", "123412341234", "hdsmathew"),
-        ("Delivered", "2022-03-23", "123412341234", "hdsmathew"),
-        ("Pending", "2022-03-25", "123412341234", "hdsmathew"),
-        ("Delivered", "2022-03-22", "123412341234", "hdsmathew"),
-        ("Pending", "2022-03-25", "123412341234", "hdsmathew");
+INSERT INTO orders(status, orderDate, creditCardNo, customerid)
+VALUES  ("Pending", "2022-03-25", "123412341234", 1),
+        ("Delivered", "2022-03-23", "123412341234", 1),
+        ("Pending", "2022-03-25", "123412341234", 1),
+        ("Delivered", "2022-03-22", "123412341234", 1),
+        ("Pending", "2022-03-25", "123412341234", 1);
 
 /* OrderItems table */
 INSERT INTO orderitems(orderId, productId, size, colour, quantity, unitPrice, discount, reviewed)
