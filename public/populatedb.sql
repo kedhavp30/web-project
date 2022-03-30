@@ -14,11 +14,11 @@ VALUES  ("Hoodie", "Men Hoodies"),
 
 /* Product table */
 INSERT INTO product(prodName, prodDesc, unitPrice, discount, picture, categoryId)
-VALUES  ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/41.png", 1),
-        ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/42.png", 1),
-        ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/43.png", 1),
-        ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/44.png", 1),
-        ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/45.png", 1),
+VALUES  ("Men-Hoodies", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/41.png", 1),
+        ("Men-Hoodies", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/42.png", 1),
+        ("Men-Hoodies", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/43.png", 1),
+        ("Men-Hoodies", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/44.png", 1),
+        ("Men-Hoodies", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/45.png", 1),
         ("Men-Jeans", "Casual trendy Jeans", "200", "0", "Men/Jeans/51.png", 2),
         ("Men-Jeans", "Casual trendy Jeans", "200", "0", "Men/Jeans/52.png", 2),
         ("Men-Jeans", "Casual trendy Jeans", "200", "0", "Men/Jeans/53.png", 2),

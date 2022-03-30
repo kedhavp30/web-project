@@ -5,10 +5,10 @@ const createNav = () => {
       <div class="mynav">
       <img src="img/logo.jpeg " alt="logo" class="mybrand-logo">
       <div class="mynav-items">
-      <form method="post" action="searchproduct.php">
+      <form method="POST" action="searchproduct.php">
         <div class="mysearch">
           <input type="text" class="mysearch-box" name="searchbox" placeholder="Search products">
-          <button class="mysearch-btn" value="searchvalue" name="search">search</button>
+          <button class="mysearch-btn" value="search" name="search">search</button>
         </div>
       </form>
         <a href="editprofile.php" ><i class="fa fa-user" ></i></a>
@@ -17,9 +17,9 @@ const createNav = () => {
       </div>
       <ul class="mylinks-container">
         <li class="mylink-item"><a href="index.php" class="mylink">Home</a></li>
-        <li class="mylink-item"><a href="searchproduct.php?gender=female" class="mylink">Women</a></li>
-        <li class="mylink-item"><a href="searchproduct.php?gender=male" class="mylink">Men</a></li>
-        <li class="mylink-item"><a href="searchproduct.php" class="mylink">Category</a></li>
+        <li class="mylink-item"><a href="searchproduct.php?category=Women" class="mylink">Women</a></li>
+        <li class="mylink-item"><a href="searchproduct.php?category=Men" class="mylink">Men</a></li>
+        <li class="mylink-item"><a href="searchproduct.php" class="mylink">All Products</a></li>
         <li class="mylink-item"><a href="aboutus.php" class="mylink">About Us</a></li>
       </ul>
     `;

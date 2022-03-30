@@ -122,7 +122,7 @@
 						<p><span>Total</span> <span class="total">Rs <?php echo $total; ?></span></p>
 						<a href="checkout.php" class="checkout-link"><i class="fa fa-shopping-cart"></i>Checkout</a>
 					</div>
-					<a href="searchproduct.php" class="shop-link">Continue Shopping</a>
+					<a href="searchproduct.php?category=<?php echo $_SESSION["search-category"]; ?>" class="shop-link">Continue Shopping</a>
 				</div>
 			</div>
 		</div>

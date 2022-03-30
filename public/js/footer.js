@@ -7,25 +7,26 @@ const createFooter = () => {
         <div class="footer-ul-container">
             <ul class="category">
                 <li class = "category-title"> Men </li>
-                <li><a href="searchproduct.php?category=T-shirts" class="footer-link">T-Shirts</a></li>
-                <li><a href="searchproduct.php?category=Hoodie" class="footer-link">Hoodies</a></li>
-                <li><a href="searchproduct.php?category=Shirt" class="footer-link">Shirts</a></li>
-                <li><a href="searchproduct.php?category=Jean" class="footer-link">Jeans</a></li>
-                <li><a href="searchproduct.php?category=Trousers" class="footer-link">Trousers</a></li>
-                <li><a href="searchproduct.php?category=Shoes" class="footer-link">Shoes</a></li>
-                <li><a href="searchproduct.php?category=Sportswear" class="footer-link">Sportswear</a></li>
-                <li><a href="searchproduct.php?category=Jogger" class="footer-link">Joggers</a></li>
+                <li><a href="searchproduct.php?category=Men-TShirt" class="footer-link">T-Shirts</a></li>
+                <li><a href="searchproduct.php?category=Men-Hoodie" class="footer-link">Hoodies</a></li>
+                <li><a href="searchproduct.php?category=Men-Shirt" class="footer-link">Shirts</a></li>
+                <li><a href="searchproduct.php?category=Men-Jean" class="footer-link">Jeans</a></li>
+                <li><a href="searchproduct.php?category=Men-Trousers" class="footer-link">Trousers</a></li>
+                <li><a href="searchproduct.php?category=Men-Shoes" class="footer-link">Shoes</a></li>
+                <li><a href="searchproduct.php?category=Men-Sportswear" class="footer-link">Sportswear</a></li>
+                <li><a href="searchproduct.php?category=Men-Jogger" class="footer-link">Joggers</a></li>
           </ul>
           <ul class="category">
             <li class = "category-title"> Women </li>
-            <li><a href="#" class="footer-link">Blouses</a></li>
-            <li><a href="#" class="footer-link">Sweatshirts</a></li>
-            <li><a href="#" class="footer-link">Jeans</a></li>
-            <li><a href="#" class="footer-link">Trousers</a></li>
-            <li><a href="#" class="footer-link">Shoes</a></li>
-            <li><a href="#" class="footer-link">Sportswear</a></li>
-            <li><a href="#" class="footer-link">Joggers</a></li>
-            <li><a href="#" class="footer-link">Dresses</a></li>
+            <li><a href="searchproduct.php?category=Women-Blouse" class="footer-link">Blouses</a></li>
+            <li><a href="searchproduct.php?category=Women-Sweatshirt" class="footer-link">Sweatshirts</a></li>
+            <li><a href="searchproduct.php?category=Women-Jean" class="footer-link">Jeans</a></li>
+            <li><a href="searchproduct.php?category=Women-Trousers" class="footer-link">Trousers</a></li>
+            <li><a href="searchproduct.php?category=Women-Shoes" class="footer-link">Shoes</a></li>
+            <li><a href="searchproduct.php?category=Women-Sportswear" class="footer-link">Sportswear</a></li>
+            <li><a href="searchproduct.php?category=Women-Jogger" class="footer-link">Joggers</a></li>
+            <li><a href="searchproduct.php?category=Women-Dress" class="footer-link">Dresses</a></li>
+            <li><a href="searchproduct.php?category=Women-Skirt" class="footer-link">Skirts</a></li>
         </ul>
        </div>
     </div>
