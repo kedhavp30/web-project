@@ -13,8 +13,6 @@ VALUES  ("Hoodie", "Men Hoodies"),
         ("Sweatshirt", "Women Sweatshirts");
 
 /* Product table */
-/* Men completed */
-/* Women not yet */
 INSERT INTO product(prodName, prodDesc, unitPrice, discount, picture, categoryId)
 VALUES  ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/41.png", 1),
         ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100", "0", "Men/Hoodies/42.png", 1),
@@ -95,12 +93,10 @@ VALUES  ("Men-Hoodie", "Made with highest quality cotton for your comfort", "100
         ("Women-Trousers", "Sleek and fresh look", "500", "0", "Women/Trousers/17.png", 6),
         ("Women-Trousers", "Sleek and fresh look", "500", "0", "Women/Trousers/18.png", 6),
         ("Women-Trousers", "Sleek and fresh look", "500", "0", "Women/Trousers/19.png", 6),
-        ("Women-Trousers", "Sleek and fresh look", "500", "0", "Women/Trousers/20.png", 6),              
+        ("Women-Trousers", "Sleek and fresh look", "500", "0", "Women/Trousers/20.png", 6);            
 
 
 /* Inventory table */
-/* Men incomplete: Up to productid=14 */
-/* Women not yet */
 INSERT INTO inventory(productId, size, colour, reOrderLevel, stockLevel)
 VALUES  (1, "S", "Blue", 10, 100),
         (1, "S", "Red", 10, 100),
