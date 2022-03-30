@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                         <li><a href="searchproduct.php?category=Jean">Jeans</a></li>
                         <li><a href="searchproduct.php?category=Shoes">Shoes</a></li>
                         <li><a href="searchproduct.php?category=Jogger">Joggers</a></li>
-                        <li><a href="">Dresses</a></li>
+                        <li><a href="searchproduct.php?category=Dress">Dresses</a></li>
                     </ul>
             </div>
         </div>
