@@ -16,11 +16,11 @@
                    FROM product INNER JOIN category ON product.categoryId = category.categoryId
                    WHERE categoryName = 'Dress';";   
                    
-    $trendingQuery = "SELECT product.productId, prodName, prodDesc, product.unitPrice, product.discount, picture, COUNT(orderitems.productId)
-                      FROM product INNER JOIN orderitems ON product.productId = orderitems.productId
-                      GROUP BY product.productId, prodName, prodDesc, product.unitPrice, product.discount, picture
-                      ORDER BY COUNT(orderitems.productId) DESC
-                      LIMIT 10;";                   
+  $trendingQuery = "SELECT product.productId, prodName, prodDesc, product.unitPrice, product.discount, picture, COUNT(orderitems.productId)
+                    FROM product INNER JOIN orderitems ON product.productId = orderitems.productId
+                    GROUP BY product.productId, prodName, prodDesc, product.unitPrice, product.discount, picture
+                    ORDER BY COUNT(orderitems.productId) DESC
+                    LIMIT 10;";                   
                     
                     
   if (!isset($_SESSION["suggestions"]["shirts"])) {
