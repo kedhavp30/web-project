@@ -42,7 +42,7 @@
                 if(password_verify($userpassword, $hashedpassword))
                 {
                     $_SESSION['username'] = $username;
-                    $referer = "signup";
+                    $referer = "signin";
                     include "includes/setCart.php";
                     header("Location: {$_SESSION["redirect"]}.php?referer=signin");
                     die();

@@ -6,10 +6,7 @@
 		die();
 	}
 
-	// Initialize empty array if it doens't exist yet
-	if (!isset($_SESSION["cart"])) {
-		$_SESSION["cart"] = array();
-	}
+	
 
 	$username = $creditcardnum = $creditcardpin = "";
 	$creditcardnumErr = $creditcardpinErr = "";
@@ -45,11 +42,11 @@
 		if($creditcardnumErr  == "" && $creditcardpinErr == "") {
 		
 			$conn->exec("INSERT INTO orders (status, orderDate, creditCardNo, customerId )
-									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 123412341234, 1 );");
+									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 123412341234, 2 );");
 
 			$orderId = $conn->query("SELECT MAX(orderId) AS orderId 
 															 FROM orders 
-															 WHERE  username = {$conn->quote($username)}")
+															 WHERE  customerId = 2;")
                       ->fetch(PDO::FETCH_ASSOC)['orderId'];
 
 			foreach ($_SESSION["cart"] as $productId => $product) {

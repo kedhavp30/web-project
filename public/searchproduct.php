@@ -15,7 +15,7 @@
       $_SESSION["search-category"] = $_GET["category"];
       
       $_SESSION["search-category-Query"] = "SELECT * FROM product
-                       WHERE prodName LIKE '{$_SESSION["search-category"]}%'";
+                       WHERE prodName LIKE '%" . $_SESSION["search-category"] . "%'";
     }
   
   } else {
@@ -109,7 +109,7 @@
           <p>BROWSE BY CATEGORIES</p>
 
           <ul class="category-list">
-              <li><a href="searchproduct.php?category=T-Shirt">T-shirts</a></li>
+              <li><a href="searchproduct.php?category=TShirt">T-shirts</a></li>
               <li><a href="searchproduct.php?category=Shirt">Shirts</a></li>
               <li><a href="searchproduct.php?category=Trousers">Trousers</a></li>
               <li><a href="searchproduct.php?category=Sportswear">Sportswear</a></li>
