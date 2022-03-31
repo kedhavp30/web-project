@@ -10,6 +10,7 @@
   // GET method
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $_SESSION["search-category"] = ""; 
+    $_SESSION["search-category-Query"] = "SELECT * FROM product";
     
     if (isset($_GET["category"])) {
       $_SESSION["search-category"] = $_GET["category"];
