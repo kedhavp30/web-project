@@ -100,9 +100,9 @@
         <div class="choose-category">
           <h2>Choose</h2>
           <div class="radio-male-female">
-              <input type="radio" id="male" name="gender" value="man" checked/>
+              <input type="radio" id="male" name="gender" value="men" checked/>
               <label for="male">Man</label>
-              <input type="radio" id="female" name="gender" value="woman"/>
+              <input type="radio" id="female" name="gender" value="women"/>
               <label for="female">Woman</label>
           </div>
           
@@ -128,9 +128,9 @@
         <div class="product-container">
 
           <?php foreach ($searchCategoryResult->fetchAll(PDO::FETCH_ASSOC) as $product): ?>
-          <div class = "product-card">
-            <div class = "product-image">
-              <span class = "discount-tag"><?php echo $product["discount"]; ?></span>
+          <div class="product-card">
+            <div class="product-image">
+              <span class="discount-tag"><?php echo $product["discount"] ?: ""; ?></span>
               <a href="viewproduct.php?productid=<?php echo $product["productId"]; ?>">
                 <img src ="img/<?php echo $product["picture"]; ?>" class="product-thumb" alt="">
               </a>  

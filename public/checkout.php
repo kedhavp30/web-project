@@ -6,8 +6,6 @@
 		die();
 	}
 
-	
-
 	$username = $creditcardnum = $creditcardpin = "";
 	$creditcardnumErr = $creditcardpinErr = "";
 
