@@ -6,6 +6,7 @@
 
   $_SESSION["search-category-Query"] = $_SESSION["search-category-Query"] ?: "SELECT * FROM product"; // Default
   $_SESSION["search-category"] = $_SESSION["search-category"] ?: ""; // Select all products if not specified
+  $_SESSION["gender"] = $_SESSION["gender"] ?: "";
 
   // GET method
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -15,15 +16,26 @@
     if (isset($_GET["category"])) {
       $_SESSION["search-category"] = $_GET["category"];
       
-      $_SESSION["search-category-Query"] = "SELECT * FROM product
-                       WHERE prodName LIKE '%" . $_SESSION["search-category"] . "%'";
+      $_SESSION["search-category-Query"] = "SELECT * 
+                                            FROM product
+                                            WHERE prodName LIKE '%" . $_SESSION["search-category"] . "%'";
+    }
+
+    if (isset($_GET["gender"])) {
+      $_SESSION["gender"] = $_GET["gender"];
+    }
+
+    if ($_SESSION["gender"]) {
+      $_SESSION["search-category-Query"] = "SELECT * 
+                                            FROM product
+                                            WHERE prodName LIKE '{$_SESSION["gender"]}-{$_SESSION["search-category"]}%'";      
     }
   
   } else {
     // POST method to filter products
     if (isset($_POST['filter'])) {
       $_SESSION["search-category-Query"] = "SELECT * FROM product
-                       WHERE prodName LIKE '{$_SESSION["search-category"]}%' 
+                       WHERE prodName LIKE '%" . $_SESSION["search-category"] . "%' 
                        AND unitPrice>={$_POST['minrange']} 
                        AND unitPrice<={$_POST['maxrange']}";
       
@@ -99,13 +111,6 @@
         </div>
 
         <div class="choose-category">
-          <h2>Choose</h2>
-          <div class="radio-male-female">
-              <input type="radio" id="male" name="gender" value="men" checked/>
-              <label for="male">Man</label>
-              <input type="radio" id="female" name="gender" value="women"/>
-              <label for="female">Woman</label>
-          </div>
           
           <p>BROWSE BY CATEGORIES</p>
 
@@ -124,7 +129,7 @@
       </div>
 
       <section class="search-results">
-        <h2 class="heading"><?php  echo $searchCategoryResult->rowCount() ? "Search Results" : "No Results Found"; ?> For <span> <?php  echo $_SESSION["search-category"] ?: "All Products"; ?></span></h2>
+        <h2 class="heading"><?php  echo $searchCategoryResult->rowCount() ? "Search Results" : "No Results Found"; ?> <span></span></h2>
 
         <div class="product-container">
 
@@ -144,9 +149,9 @@
                 <button class="card-btn" name="add-to-cart" value="add-to-cart">Add To Cart</button>";
               </form>";             
             </div>
-            <div class = "product-info">
+            <div class="product-info">
               <h2 class="product-brand"><?php echo $product["prodName"]; ?></h2>
-              <p class= "product-short-desc"><?php echo $product["prodDesc"]; ?></p>
+              <p class="product-short-desc"><?php echo $product["prodDesc"]; ?></p>
               <span class="price"><?php echo $product["unitPrice"]; ?></span>
             </div>
           </div>

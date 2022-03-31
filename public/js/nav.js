@@ -17,8 +17,8 @@ const createNav = () => {
       </div>
       <ul class="mylinks-container">
         <li class="mylink-item"><a href="index.php" class="mylink">Home</a></li>
-        <li class="mylink-item"><a href="searchproduct.php?category=Women" class="mylink">Women</a></li>
-        <li class="mylink-item"><a href="searchproduct.php?category=Men" class="mylink">Men</a></li>
+        <li class="mylink-item"><a href="searchproduct.php?gender=Women" class="mylink">Women</a></li>
+        <li class="mylink-item"><a href="searchproduct.php?gender=Men" class="mylink">Men</a></li>
         <li class="mylink-item"><a href="searchproduct.php" class="mylink">All Products</a></li>
         <li class="mylink-item"><a href="aboutus.php" class="mylink">About Us</a></li>
       </ul>
