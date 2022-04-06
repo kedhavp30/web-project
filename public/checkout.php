@@ -40,11 +40,11 @@
 		if($creditcardnumErr  == "" && $creditcardpinErr == "") {
 		
 			$conn->exec("INSERT INTO orders (status, orderDate, creditCardNo, customerId )
-									 VALUES ( 'Pending', {$conn->quote(date("Y-m-d"))}, 123412341234, 2 );");
+									 VALUES ( 'Delivered', {$conn->quote(date("Y-m-d"))}, 123412341234, 1 );");
 
 			$orderId = $conn->query("SELECT MAX(orderId) AS orderId 
 															 FROM orders 
-															 WHERE  customerId = 2;")
+															 WHERE  customerId = 1;")
                       ->fetch(PDO::FETCH_ASSOC)['orderId'];
 
 			foreach ($_SESSION["cart"] as $productId => $product) {

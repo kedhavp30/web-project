@@ -9,37 +9,6 @@
     $_SESSION["cart"] = array();
   }
 
-	// Registered users; retrieve cart items from db if not yet and cart session empty
-	if (isset($_SESSION["username"]) && !$_SESSION["cart"]) {
-		$cartQuery = "SELECT cart.productId, size, colour, quantity, cart.unitPrice, cart.discount, prodName, picture
-									FROM cart INNER JOIN product ON cart.productId = product.productId
-									WHERE username = {$conn->quote($_SESSION["username"])};";
-
-		$cartQueryResult = $conn->query($cartQuery);
-
-		if ($cartQueryResult->rowCount()) {
-
-			// Session variable cart contains productId as key and product info as value
-			forEach($cartQueryResult->fetchAll(PDO::FETCH_ASSOC) as $product) {
-
-				if (isset($_SESSION["cart"]["{$product["productId"]}"])) {
-					$_SESSION["cart"]["{$product["productId"]}"]["quantity"] += $product["quantity"];
-					$_SESSION["cart"]["{$product["productId"]}"]["size_colour_qty"]["{$product["size"]}_{$product["colour"]}"] = $product["quantity"];
-					continue;
-				}
-
-				$size_colour_qty = array("{$product["size"]}_{$product["colour"]}"=>"{$product["quantity"]}");
-				$_SESSION["cart"]["{$product["productId"]}"] = array( "size_colour_qty"=>$size_colour_qty,
-																															"quantity"=>"{$product["quantity"]}",
-																															"unitPrice"=>"{$product["unitPrice"]}",
-																															"discount"=>"{$product["discount"]}",
-																															"prodName"=>"{$product["prodName"]}",
-																															"picture"=>"{$product["picture"]}");
-
-			}
-		}
-	}
-
   // GET request for productId
   if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -51,7 +20,6 @@
     if ($productQueryResult->rowCount()) {
       $product = $productQueryResult->fetch(PDO::FETCH_ASSOC);
       
-      // Session variable $productId contains productId as key and product info as value
       $_SESSION["viewedproduct"] = array("unitPrice"=>"{$product["unitPrice"]}",
                                           "discount"=>"{$product["discount"]}",
                                           "prodName"=>"{$product["prodName"]}",

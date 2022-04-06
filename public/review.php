@@ -20,7 +20,7 @@
 
     $productQuery = "SELECT * FROM orders 
                      INNER JOIN orderitems ON orders.orderId = orderitems.orderId
-                     WHERE orders.username = {$conn->quote($username)}
+                     WHERE orders.customerId = 1
                      AND orders.status = 'Delivered'
                      AND orderitems.productId = {$conn->quote($_SESSION["productid"])}
                      AND orderitems.reviewed = 0;";
@@ -60,7 +60,7 @@
                                SET reviewed = 1
                                WHERE orderid IN (SELECT orderId
                                                  FROM orders
-                                                 WHERE username = {$conn->quote($username)}
+                                                 WHERE customerId = 1
                                                  AND orders.status = 'Delivered')
                                AND productId = {$conn->quote($_SESSION["productid"])}
                                AND reviewed = 0";

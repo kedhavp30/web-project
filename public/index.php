@@ -39,6 +39,8 @@
     $_SESSION["suggestions"]["trending"] = $conn->query($trendingQuery)->fetchAll(PDO::FETCH_ASSOC);
   }  
 
+  include "includes/addToCart.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -108,11 +110,11 @@
 
    <!--collections-->
    <section class="collection-container">
-       <a href="searchproduct.php?category=Women" class="collection">
+       <a href="searchproduct.php?gender=Women" class="collection">
            <img src="img/women-collection.png" alt="">
            <p class="collection-title">Women<br>Apparels</p>
        </a>
-       <a href="searchproduct.php?category=Men" class="collection">
+       <a href="searchproduct.php?gender=Men" class="collection">
         <img src="img/men-collection.png" alt="">
         <p class="collection-title">Men<br>Apparels</p>
     </a>
