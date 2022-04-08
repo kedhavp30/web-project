@@ -18,7 +18,7 @@
   margin-top: 10px;
 }
 
-.category-menu a {
+.category-list a {
   margin: 10px 0 0 13px;
   text-decoration: none;
   color: #383838;
@@ -26,7 +26,7 @@
   transition: 0.5s;
 }
 
-.category-menu a:hover {
+.category-list a:hover {
   opacity: 1;
 }
 
@@ -59,20 +59,24 @@
   width: 100%;
 }
 
-.radio-male-female input[type="radio"] {
-  display: none;
-}
-
-.radio-male-female label {
+.radio-male-female a {
   width: 50%;
   padding: 5px;
   background-color: #fcfcfc;
   float: left;
   text-align: center;
   border: 1px solid #c0bfbf;
+  text-decoration: none;
+  color: #383838;
 }
 
-.radio-male-female input[type="radio"]:checked + label {
+.radio-male-female a:hover {
+  background-color: #00acee;
+  color: #fff;
+  transition: 0.5s;
+}
+
+.radio-male-female a.active {
   background-color: #00acee;
   color: #fff;
   transition: 0.5s;
