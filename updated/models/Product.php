@@ -13,6 +13,7 @@
     public $discount;
     public $imgUrl;
     public $categoryName;
+    public $available;
 
     public function __construct($db) {
       $this->conn = $db;
@@ -31,7 +32,8 @@
           FROM {$this->table} p INNER JOIN category c
           ON p.categoryId = c.categoryId
           WHERE c.categoryName LIKE '$categoryName'
-          AND p.prodName LIKE '$gender-%';";
+          AND p.prodName LIKE '$gender-%'
+          AND p.available = 1;";
 
       $stmt = $this->conn->prepare($query);
       $stmt->execute();
@@ -50,7 +52,8 @@
             p.picture AS imgUrl
           FROM {$this->table} p INNER JOIN category c
           ON p.categoryId = c.categoryId
-          WHERE productId = ?;";
+          WHERE productId = ?
+          AND p.available = 1;";
 
       $stmt = $this->conn->prepare($query);
       $stmt->bindParam(1, $this->productId);
@@ -106,6 +109,7 @@
               discount = :discount,
               picture = :imgUrl,
               categoryId = :categoryId
+              available = :available
             WHERE productId = :productId;";
       
       $stmt = $this->conn->prepare($query);
@@ -117,6 +121,7 @@
       $stmt->bindParam(':imgUrl', $this->imgUrl);
       $stmt->bindParam(':categoryId', $this->categoryId);
       $stmt->bindParam(':productId', $this->productId);
+      $stmt->bindParam(':available', $this->available);
 
       if ($stmt->execute()) {
         return true;
@@ -125,11 +130,6 @@
       printf("Error: %s.\n", $stmt->error);
       return false;
     }
-
-
-    /*
-      TODO: Add available field to product table
-    */
 
     // DELETE product
     public function delete() {

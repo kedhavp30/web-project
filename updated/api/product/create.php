@@ -6,8 +6,8 @@
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods,
                                         Authorization, x-Requested-with, Content-Type');
 
-  include_once('/home/headrick/web-project/config/Database.php');
-  include_once('/home/headrick/web-project/models/Product.php');
+  include_once('../../config/Database.php');
+  include_once('../../models/Product.php');
 
   // Set db connection
   $database = new Database();

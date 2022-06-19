@@ -3,8 +3,8 @@
   header('Allow-Control-Allow-Origin: *');
   header('Content-Type: application/json');
 
-  include_once('/home/headrick/web-project/config/Database.php');
-  include_once('/home/headrick/web-project/models/Review.php');
+  include_once('../../config/Database.php');
+  include_once('../../models/Review.php');
 
   // Set db connection
   $database = new Database();
