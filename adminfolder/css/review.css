@@ -175,3 +175,17 @@ form input[type="submit"]:hover {
   background-color: #1e499b;
   transition: 0.5s;
 }
+
+.button {
+  background-color:#0A2558;
+  color: #fff;
+  padding: 7px 15px;
+  border-radius:10px; 
+}
+
+.button:hover{
+  background-color: #1e499b;
+  transition: 0.5s;
+}
+
+
