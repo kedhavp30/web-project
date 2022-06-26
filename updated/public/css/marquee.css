@@ -1,0 +1,41 @@
+/* Product Marquee */
+h2 {
+  padding-top: 25px;
+  text-align: center;
+  font-weight: 500;
+  color: #324d67;
+}
+
+.marquee {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.product-container-marquee {
+  gap: 15px;
+}
+
+.track {
+  width: 100%;
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 15s linear infinite;
+}
+
+.track:hover {
+  animation-play-state: paused;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}

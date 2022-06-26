@@ -1,32 +1,32 @@
 const createFooter = () => {
     let footer=document.querySelector('footer');
 
-    footer.innerHTML = `<footer>
+    footer.innerHTML = /* html */ `
     <div class="footer-content">
         <img src="img/logo.jpeg" class = "logo" alt="">
         <div class="footer-ul-container">
             <ul class="category">
                 <li class = "category-title"> Men </li>
-                <li><a href="searchproduct.php?category=Men-TShirt" class="footer-link">T-Shirts</a></li>
-                <li><a href="searchproduct.php?category=Men-Hoodie" class="footer-link">Hoodies</a></li>
-                <li><a href="searchproduct.php?category=Men-Shirt" class="footer-link">Shirts</a></li>
-                <li><a href="searchproduct.php?category=Men-Jean" class="footer-link">Jeans</a></li>
-                <li><a href="searchproduct.php?category=Men-Trousers" class="footer-link">Trousers</a></li>
-                <li><a href="searchproduct.php?category=Men-Shoes" class="footer-link">Shoes</a></li>
-                <li><a href="searchproduct.php?category=Men-Sportswear" class="footer-link">Sportswear</a></li>
-                <li><a href="searchproduct.php?category=Men-Jogger" class="footer-link">Joggers</a></li>
+                <li><a href="searchproduct.php?category=TShirt&gender=men" class="footer-link">T-Shirts</a></li>
+                <li><a href="searchproduct.php?category=Hoodie&gender=men" class="footer-link">Hoodies</a></li>
+                <li><a href="searchproduct.php?category=Shirt&gender=men" class="footer-link">Shirts</a></li>
+                <li><a href="searchproduct.php?category=Jean&gender=men" class="footer-link">Jeans</a></li>
+                <li><a href="searchproduct.php?category=Trousers&gender=men" class="footer-link">Trousers</a></li>
+                <li><a href="searchproduct.php?category=Shoes&gender=men" class="footer-link">Shoes</a></li>
+                <li><a href="searchproduct.php?category=Sportswear&gender=men" class="footer-link">Sportswear</a></li>
+                <li><a href="searchproduct.php?category=Jogger&gender=men" class="footer-link">Joggers</a></li>
           </ul>
           <ul class="category">
             <li class = "category-title"> Women </li>
-            <li><a href="searchproduct.php?category=Women-Blouse" class="footer-link">Blouses</a></li>
-            <li><a href="searchproduct.php?category=Women-Sweatshirt" class="footer-link">Sweatshirts</a></li>
-            <li><a href="searchproduct.php?category=Women-Jean" class="footer-link">Jeans</a></li>
-            <li><a href="searchproduct.php?category=Women-Trousers" class="footer-link">Trousers</a></li>
-            <li><a href="searchproduct.php?category=Women-Shoes" class="footer-link">Shoes</a></li>
-            <li><a href="searchproduct.php?category=Women-Sportswear" class="footer-link">Sportswear</a></li>
-            <li><a href="searchproduct.php?category=Women-Jogger" class="footer-link">Joggers</a></li>
-            <li><a href="searchproduct.php?category=Women-Dress" class="footer-link">Dresses</a></li>
-            <li><a href="searchproduct.php?category=Women-Skirt" class="footer-link">Skirts</a></li>
+            <li><a href="searchproduct.php?category=Blouse&gender=women" class="footer-link">Blouses</a></li>
+            <li><a href="searchproduct.php?category=Sweatshirt&gender=women" class="footer-link">Sweatshirts</a></li>
+            <li><a href="searchproduct.php?category=Jean&gender=women" class="footer-link">Jeans</a></li>
+            <li><a href="searchproduct.php?category=Trousers&gender=women" class="footer-link">Trousers</a></li>
+            <li><a href="searchproduct.php?category=Shoes&gender=women" class="footer-link">Shoes</a></li>
+            <li><a href="searchproduct.php?category=Sportswear&gender=women" class="footer-link">Sportswear</a></li>
+            <li><a href="searchproduct.php?category=Jogger&gender=women" class="footer-link">Joggers</a></li>
+            <li><a href="searchproduct.php?category=Dress&gender=women" class="footer-link">Dresses</a></li>
+            <li><a href="searchproduct.php?category=Skirt&gender=women" class="footer-link">Skirts</a></li>
         </ul>
        </div>
     </div>
@@ -56,7 +56,6 @@ const createFooter = () => {
     </div>
     </div>
     <p class="footer-credit">STYLISHWEAR, Best Apparels Clothing Store</p>
-</footer>
 `;
 }
 createFooter();
