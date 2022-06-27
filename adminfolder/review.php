@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,7 +47,7 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="pl-4">1</td>
+                      <td class="pl-4"></td>
                       <td>
                         <div class="profile">
                           <!--img---->
@@ -155,3 +156,4 @@
 
   </body>  
 </html>
+
