@@ -15,6 +15,10 @@
     public $categoryName;
     public $available;
 
+    public $colour;
+    public $size;
+    public $stockLevel;
+
     public function __construct($db) {
       $this->conn = $db;
     }
@@ -72,24 +76,44 @@
 
     // CREATE product
     public function create() {
-      $query = "INSERT INTO $this->table (prodDesc, prodName, unitPrice, discount, picture, categoryId)
-            VALUES (
-              :prodDesc,
-              :prodName,
-              :unitPrice,
-              :discount,
-              :imgUrl,
-              :categoryId
-            );";
-      
+      // Check if product with prodName already exists
+      $query = "SELECT productId FROM $this->table WHERE prodName LIKE {$this->conn->quote($this->prodName)};";
+      $productQueryResult = $this->conn->query($query);
+
+      if (!$productQueryResult->rowCount()) { // if product doesn't exist, insert
+        $query = "INSERT INTO $this->table (prodDesc, prodName, unitPrice, discount, picture, categoryId)
+              VALUES (
+                :prodDesc,
+                :prodName,
+                :unitPrice,
+                :discount,
+                :imgUrl,
+                :categoryId
+              );";
+        
+        $stmt = $this->conn->prepare($query);
+        // Clean user input
+        $stmt->bindParam(':prodDesc', $this->prodDesc);
+        $stmt->bindParam(':prodName', $this->prodName);
+        $stmt->bindParam(':unitPrice', $this->unitPrice);
+        $stmt->bindParam(':discount', $this->discount);
+        $stmt->bindParam(':imgUrl', $this->imgUrl);
+        $stmt->bindParam(':categoryId', $this->categoryId);
+        $stmt->execute();
+
+        // Get productId of new product
+        $query = "SELECT MAX(productId) AS productId FROM $this->table;";
+        $productQueryResult = $this->conn->query($query);
+      }
+
+      $this->productId = ($productQueryResult->fetch(PDO::FETCH_ASSOC))['productId'];
+      // Insert stock level
+      $query = "INSERT INTO inventory (productId, size, colour, stockLevel) VALUES (:productId, :size, :colour, :stockLevel);";
       $stmt = $this->conn->prepare($query);
-      // Clean user input
-      $stmt->bindParam(':prodDesc', $this->prodDesc);
-      $stmt->bindParam(':prodName', $this->prodName);
-      $stmt->bindParam(':unitPrice', $this->unitPrice);
-      $stmt->bindParam(':discount', $this->discount);
-      $stmt->bindParam(':imgUrl', $this->imgUrl);
-      $stmt->bindParam(':categoryId', $this->categoryId);
+      $stmt->bindParam(':productId', $this->productId);
+      $stmt->bindParam(':size', $this->size);
+      $stmt->bindParam(':colour', $this->colour);
+      $stmt->bindParam(':stockLevel', $this->stockLevel);
 
       if ($stmt->execute()) {
         return true;
@@ -101,6 +125,7 @@
 
     // UPDATE product
     public function update() {
+      // Update product
       $query = "UPDATE $this->table
             SET
               prodDesc = :prodDesc,
@@ -109,7 +134,6 @@
               discount = :discount,
               picture = :imgUrl,
               categoryId = :categoryId
-              available = :available
             WHERE productId = :productId;";
       
       $stmt = $this->conn->prepare($query);
@@ -121,7 +145,15 @@
       $stmt->bindParam(':imgUrl', $this->imgUrl);
       $stmt->bindParam(':categoryId', $this->categoryId);
       $stmt->bindParam(':productId', $this->productId);
-      $stmt->bindParam(':available', $this->available);
+      $stmt->execute();
+
+      // Update Inventory
+      $query = "UPDATE inventory SET stockLevel = :stockLevel WHERE productId = :productId AND size = :size AND colour = :colour;";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(':productId', $this->productId);
+      $stmt->bindParam(':size', $this->size);
+      $stmt->bindParam(':colour', $this->colour);
+      $stmt->bindParam(':stockLevel', $this->stockLevel);
 
       if ($stmt->execute()) {
         return true;

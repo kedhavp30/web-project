@@ -30,7 +30,8 @@
           FROM {$this->table} r INNER JOIN customer c
           ON r.customerId = c.customerId
           WHERE r.productId LIKE '$productId'
-          AND r.flag LIKE '$flag';";
+          AND r.flag LIKE '$flag'
+          AND ban = 0;";
 
       $stmt = $this->conn->prepare($query);
       $stmt->execute();
@@ -89,16 +90,11 @@
       return false;
     }
 
-
-    /*
-      TODO: Add banned field to review table
-    */
-
     // DELETE review (ban)
     public function delete() {
       $query = "UPDATE $this->table
             SET
-              banned = 1
+              ban = 1
             WHERE productId = :productId
             AND postedOn = :postedOn;";
       
