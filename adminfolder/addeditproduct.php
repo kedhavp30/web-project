@@ -1,12 +1,12 @@
 <?php 
 
+  require_once "../updated/config/Database.php";
+  require_once "../updated/models/Product.php";
+
+  $database = new Database();
+  $db = $database->connect();
+
   if (isset($_GET['productId'])) { //Edit product; fetch product info
-    require_once "../updated/config/Database.php";
-    require_once "../updated/models/Product.php";
-
-    $database = new Database();
-    $db = $database->connect();
-
     // Product to edit
     $productModel = new Product($db);
     $productModel->productId = $_GET['productId'];
@@ -45,8 +45,8 @@
     <link rel="stylesheet" href="css/addeditproduct.css">
 
     <script>
-      let inventory = <?= $inventoryJSON; ?>;
-      localStorage.setItem("inventory", JSON.stringify(inventory));
+      let inventory = <?= $inventoryJSON ?? "null"; ?>;
+      (inventory != null) && localStorage.setItem("inventory", JSON.stringify(inventory));
     </script>
 
   </head>
