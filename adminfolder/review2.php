@@ -142,4 +142,3 @@ session_start();
   </body>  
 </html>
 
-<!--<td><input type =button id=ban value=ban> </td>; line 95 -->
