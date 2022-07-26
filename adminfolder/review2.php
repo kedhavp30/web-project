@@ -88,7 +88,7 @@ session_start();
                     <th scope= col  class= border-0 text-uppercase font-medium >Reviews</th>
                     <th scope= col class= border-0 text-uppercase font-medium >PostedOn </th>
                     <th scope= col class= border-0 text-uppercase font-medium >Rating </th>
-                    <th scope= col class= border-0 text-uppercase font-medium > Apply <button type = button id = ban class=button>Ban</button></th>
+                    <th scope= col class= border-0 text-uppercase font-medium >  <button type = button id = ban class=button>Ban</button></th>
                     </tr>
                   </thead>
 
@@ -120,11 +120,6 @@ session_start();
                       <td>
                       <span class=text-muted>" . $row['rating'] . "</span><br>
                     </td>
-                      
-                    <td> <input id='id'type='hidden' name ='rv_name' value=".$row['productId']."></td>;
-                    <td> <input id='cid'type='hidden' name ='cid' value=".$row['customerid']."></td>;
-                    <td> <input id='postedOn'type='hidden' name ='posted' value=".$row['postedOn']."></td>; 
-                    <td> <input id='postedOn'type='hidden' name ='posted' value=".$row['rating']."></td>; 
                     </tr>
                   </tr>
                   </tbody>
