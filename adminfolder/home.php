@@ -198,22 +198,24 @@
                  <li class= topic >Total</li>
                 </div>
                 ";
-                $sQuery = "SELECT orderDate, status, firstName, lastName, unitPrice FROM orders INNER JOIN orderitems ON orders.orderId = orderitems.orderId INNER JOIN customer ON orders.customerId = customer.customerId
-                 WHERE status = 'Pending' OR status = 'Delivered'";
+                $sQuery = "SELECT orderDate, status, firstName, lastName, unitPrice FROM orders 
+                INNER JOIN orderitems ON orders.orderId = orderitems.orderId 
+                INNER JOIN customer ON orders.customerId = customer.customerId
+                WHERE status = 'Pending' OR status = 'Delivered'";
                 #echo $sQuery."<br/>";
                 $Result = $conn->query($sQuery);
                 $numrows = $Result->rowCount();
                 while ($row = $Result->fetch()) {
                 echo "
-          <div class = sales-details>
-            <ul class= details>
-              <li><a href= # >" . $row['orderDate'] . "</a></li>
-            </ul>
-            <ul class= details >
-            
-            <li><a href= # > " . $row['firstName']."" . " " . $row['lastName']."</a></li>
-           </ul>
-          <ul class= details >
+                 <div class = sales-details>
+                   <ul class= details>
+                     <li><a href= # >" . $row['orderDate'] . "</a></li>
+                   </ul>
+                   <ul class= details >
+                     <li><a href= # > " . $row['firstName']."" . " " . $row['lastName']."</a></li>
+                   </ul>       
+                   <ul class= details >
+         
            
             <li><a href= # >" . $row['status'] . "</a></li>
           </ul>
@@ -231,7 +233,10 @@
 
          <?php
           
-          $squery1 = "SELECT prodName, unitPrice, picture from product LIMIT 17"; 
+          $squery1 = "SELECT prodName, unitPrice, picture from product 
+          WHERE productId='1' OR productId='16' OR productId='14' OR productId='12' OR productId='7' 
+          OR productId='40' OR productId='20' OR productId='68' OR productId='75' OR productId='56'
+          OR productId='47' OR productId='32' OR productId='80' "; 
           $Result = $conn->query($squery1);
           while ($row = $Result->fetch()) {
           echo "
