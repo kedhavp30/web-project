@@ -124,10 +124,9 @@ session_start();
                   </tr>
 
                </tbody>
-
-                   <td> <input id='id'type='hidden' name ='pid' value=".$row['productId']."></td>;
-                   <td> <input id='cid'type='hidden' name ='cid' value=".$row['customerid']."></td>;
-                   <td> <input id='postedOn'type='hidden' name ='posted' value=".$row['postedOn']."></td>;
+                   <input id='id'type='hidden' name ='pid' value=".$row['productId'].">
+                   <input id='cid'type='hidden' name ='cid' value=".$row['customerid'].">
+                   <input id='postedOn'type='hidden' name ='posted' value=".$row['postedOn'].">
               </table> 
             </div>";
             }
@@ -138,12 +137,11 @@ session_start();
           </div>
         </div>
       </div>
-
       
-               
-    </section>
 
+  </section>
   <script src="js/nav.js"></script>
+  
 
   </body>  
 </html>
