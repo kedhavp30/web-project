@@ -55,10 +55,6 @@
                 </div>";
                }
                ?>  
-
-              <td> <input id='username'type='hidden' name ='username' value=".$row['username']."></td>;
-              <td> <input id='comment'type='hidden' name ='comment' value=".$row['comment']."></td>;
-              <td> <input id='postedOn'type='hidden' name ='posted' value=".$row['postedOn']."></td>; 
                
             </div>
             <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4 reply-form ">

@@ -2,6 +2,11 @@
 
 session_start();
 
+ if (!isset($_SESSION["username"])) {
+    header("Location: home.html?referer=login");
+    die();
+}
+
 // define variables and set to empty string values
 
 $usernameErr = $passwordErr = "";

@@ -88,7 +88,7 @@ session_start();
                     <th scope= col  class= border-0 text-uppercase font-medium >Reviews</th>
                     <th scope= col class= border-0 text-uppercase font-medium >PostedOn </th>
                     <th scope= col class= border-0 text-uppercase font-medium >Rating </th>
-                    <th scope= col class= border-0 text-uppercase font-medium > Apply <button type = button id = ban class=button>Ban</button></th>
+                    <th scope= col class= border-0 text-uppercase font-medium >  <button type = button id = ban class=button>Ban</button></th>
                     </tr>
                   </thead>
 
@@ -120,31 +120,29 @@ session_start();
                       <td>
                       <span class=text-muted>" . $row['rating'] . "</span><br>
                     </td>
-                      
-                    <td> <input id='id'type='hidden' name ='rv_name' value=".$row['productId']."></td>;
-                    <td> <input id='cid'type='hidden' name ='cid' value=".$row['customerid']."></td>;
-                    <td> <input id='postedOn'type='hidden' name ='posted' value=".$row['postedOn']."></td>; 
-                    <td> <input id='postedOn'type='hidden' name ='posted' value=".$row['rating']."></td>; 
                     </tr>
                   </tr>
-                  </tbody>
 
-                   
+               </tbody>
+                   <input id='id'type='hidden' name ='pid' value=".$row['productId'].">
+                   <input id='cid'type='hidden' name ='cid' value=".$row['customerid'].">
+                   <input id='postedOn'type='hidden' name ='posted' value=".$row['postedOn'].">
               </table> 
             </div>";
             }
+            
             ?>    
                    
             </div>
           </div>
         </div>
       </div>
-               
-    </section>
+      
 
+  </section>
   <script src="js/nav.js"></script>
+  
 
   </body>  
 </html>
 
-<!--<td><input type =button id=ban value=ban> </td>; line 95 -->
