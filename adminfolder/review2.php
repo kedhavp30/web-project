@@ -84,7 +84,7 @@ session_start();
                   <thead>
                     <tr>
                     <th scope=col class= border-0 text-uppercase font-medium>Product</th>
-                    <th scope=col class= border-0 text-uppercase font-medium style= width:10%; >ProductId</th>
+                    <th scope=col class= border-0 text-uppercase font-medium style= width:10%; >customerId</th>
                     <th scope= col  class= border-0 text-uppercase font-medium >Reviews</th>
                     <th scope= col class= border-0 text-uppercase font-medium >PostedOn </th>
                     <th scope= col class= border-0 text-uppercase font-medium >Rating </th>
@@ -106,7 +106,7 @@ session_start();
                       </td>  
                 
                       <td>
-                      <span class=text-muted>" . $row['productId'] . "</span><br>
+                      <span class=text-muted>" . $row['customerid'] . "</span><br>
                       </td>
                       
                       <td>
