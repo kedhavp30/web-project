@@ -14,7 +14,7 @@ const createNav = () => {
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="productlist.php">
           <i class='bx bx-box' ></i>
           <span class="mylinks_name">Product</span>
         </a>
