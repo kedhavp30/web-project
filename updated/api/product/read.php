@@ -13,8 +13,8 @@
   // Instantiate product model
   $productModel = new Product($db);
 
-  $category = $_GET['category'] ?? ""; 
-  $gender = $_GET['gender'] ?? ""; 
+  $category = $_GET['category'] ?? "%"; 
+  $gender = $_GET['gender'] ?? "%"; 
 
   // Query product
   $result = $productModel->read($category, $gender);
