@@ -3,7 +3,7 @@
 session_start();
 
  if (!isset($_SESSION["username"])) {
-    header("Location: home.html?referer=login");
+    header("Location: home.php?referer=login");
     die();
 }
 

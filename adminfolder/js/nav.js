@@ -44,7 +44,7 @@ const createNav = () => {
         </a>
       </li>
       <li class="log_out">
-        <a href="#">
+        <a href="logout.php">
           <i class='bx bx-log-out'></i>
           <span class="mylinks_name">Log out</span>
         </a>
